@@ -11,7 +11,8 @@ OBJDIR  	= ./obj
 OBJS    	= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 
 CC      	= gcc
-CFLAGS   	= -Wall -Wextra -Werror -fsanitize=thread
+#CFLAGS   	= -Wall -Wextra -Werror -fsanitize=thread
+#CFLAGS   	= -fsanitize=thread
 
 all: $(NAME)
 

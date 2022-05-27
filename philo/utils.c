@@ -38,3 +38,19 @@ long    get_time(void)
 	milliseconds += tp.tv_usec / 1000;
 	return (milliseconds);
 }
+
+int	max(int a, int b)
+{
+	if (a >= b)
+		return (a);
+	else
+		return (b);
+}
+
+int	min(int a, int b)
+{
+	if (a <= b)
+		return (a);
+	else
+		return (b);
+}

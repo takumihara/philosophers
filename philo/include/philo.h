@@ -49,6 +49,7 @@ void	print_log(const t_philo_info *info, t_philo_status status);
 
 // philo.c
 void	*philosopher(void *arg_);
+void	ph_wait(long start, long wait_time);
 
 // monitor.c
 bool is_starved(t_info *info, t_philo_info *ph_info);
@@ -56,6 +57,9 @@ bool all_satisfied(t_info *info);
 void	increment_satisfied_philo(t_info *info);
 int		get_satisfied_philo(t_info *info);
 void	set_last_meal_time(t_philo_info *ph_info, long last_meal_time);
+
+// ph_grab_forks
+bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_forks);
 
 
 #endif //PHILO_H
