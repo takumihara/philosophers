@@ -1,6 +1,7 @@
 NAME    		= philo
 CURRENT_PATH	= .
 
+SRCDIR 		= ./src
 SRC_PATHS		= $(CURRENT_PATH)
 SRCS			= $(foreach path, $(SRC_PATHS), $(wildcard $(path)/*.c))
 
@@ -8,7 +9,6 @@ VPATH		= $(CURRENT_PATH)
 
 OBJDIR  	= ./obj
 OBJS    	= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
-LIBFT_PATH	= libft
 
 CC      	= gcc
 CFLAGS   	= -Wall -Wextra -Werror -fsanitize=thread
@@ -23,11 +23,9 @@ $(OBJDIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
 clean:
-	@make clean -C $(LIBFT_PATH)
 	@rm -rf $(OBJDIR)
 
 fclean: clean
-	@make fclean -C $(LIBFT_PATH)
 	@rm -f $(NAME) $(CHECKER)
 
 re: fclean all
