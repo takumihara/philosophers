@@ -51,6 +51,7 @@ void	print_log(const t_philo_info *info, t_philo_status status);
 void	*philosopher(void *arg_);
 void	ph_wait(long start, long wait_time);
 
+
 // monitor.c
 bool is_starved(t_info *info, t_philo_info *ph_info);
 bool all_satisfied(t_info *info);

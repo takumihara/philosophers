@@ -74,7 +74,7 @@ void	ph_wait(long start, long wait_time)
 	{
 		if (get_time() >= start + wait_time)
 			return ;
-		usleep(200);
+		usleep(500);
 	}
 }
 

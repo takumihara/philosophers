@@ -19,24 +19,17 @@ bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_forks)
 	{
 		*first_forks = false;
 		if (ph_info->common->num_of_philo % 2)
-		{
-			if (!ph_grab_first_odd_forks(ph_info))
-				return (false);
-		}
+			return (ph_grab_first_odd_forks(ph_info));
 		else
-			ph_grab_first_even_forks(ph_info);
+			return (ph_grab_first_even_forks(ph_info));
 	}
 	else
 	{
 		if (ph_info->common->num_of_philo % 2)
-		{
-			if (!ph_grab_odd_forks(ph_info))
-				return (false);
-		}
+			return (ph_grab_odd_forks(ph_info));
 		else
-			ph_grab_even_forks(ph_info);
+			return (ph_grab_even_forks(ph_info));
 	}
-	return (true);
 }
 
 // grab_forks() return false when the left and right forks are the same
@@ -44,11 +37,12 @@ bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_forks)
 bool	ph_grab_odd_forks(const t_philo_info *ph_info)
 {
 	pthread_mutex_t	*forks;
-	const long		interval = max(0, calc_interval(ph_info));
+	long		interval;
 
-	forks = ph_info->common->forks;
 	if (ph_info->left == ph_info->right)
 		return (false);
+	forks = ph_info->common->forks;
+	interval = max(0, calc_interval(ph_info));
 	ph_wait(get_time(), interval / 1000);
 	pthread_mutex_lock(&forks[ph_info->left]);
 	pthread_mutex_lock(&forks[ph_info->right]);
@@ -58,8 +52,11 @@ bool	ph_grab_odd_forks(const t_philo_info *ph_info)
 bool ph_grab_even_forks(const t_philo_info *ph_info)
 {
 	pthread_mutex_t		*forks;
+	const long			time_to_sleep = ph_info->common->time_to_sleep;
 
 	forks = ph_info->common->forks;
+	if (time_to_sleep == 0)
+		usleep(500);
 	if (ph_info->id % 2)
 		pthread_mutex_lock(&forks[ph_info->left]);
 	else
@@ -82,13 +79,16 @@ bool ph_grab_even_forks(const t_philo_info *ph_info)
 bool ph_grab_first_odd_forks(const t_philo_info *ph_info)
 {
 	pthread_mutex_t	*forks;
-	const long		interval = max(0, calc_interval(ph_info));
-	const long		one_loop = interval + ph_info->common->time_to_eat + ph_info->common->time_to_sleep;
-	const long		next = (ph_info->id-1) * ph_info->common->time_to_eat % one_loop;
+	long			interval;
+	long			one_loop;
+	long			next;
 
-	forks = ph_info->common->forks;
 	if (ph_info->left == ph_info->right)
 		return (false);
+	forks = ph_info->common->forks;
+	interval = max(0, calc_interval(ph_info));
+	one_loop = interval + ph_info->common->time_to_eat + ph_info->common->time_to_sleep;
+	next = (ph_info->id-1) * ph_info->common->time_to_eat % one_loop;
 	ph_wait(ph_info->common->start, next / 1000);
 	pthread_mutex_lock(&forks[ph_info->left]);
 	print_log(ph_info, TAKEN_FORK);
@@ -104,7 +104,7 @@ bool ph_grab_first_even_forks(const t_philo_info *ph_info)
 	forks = ph_info->common->forks;
 	if (ph_info->id % 2 == 0)
 	{
-		ph_wait(ph_info->common->start, ph_info->common->time_to_eat / 2000);
+//		ph_wait(ph_info->common->start, ph_info->common->time_to_eat / 2000);
 		return (false);
 	}
 	pthread_mutex_lock(&forks[ph_info->left]);
@@ -122,5 +122,5 @@ int calc_interval(const t_philo_info *ph_info)
 	const int	n = num_of_philo / 2;
 	const int	time_to_think = time_to_eat * num_of_philo - (time_to_eat + time_to_sleep) * n;
 
-	return ((time_to_think + n - 1) / n);
+	return (time_to_think / n - 1);
 }
