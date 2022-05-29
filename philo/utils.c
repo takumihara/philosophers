@@ -2,6 +2,7 @@
 #include <sys/time.h>
 
 #include <stdbool.h>
+#include <unistd.h>
 
 bool	atoi_strict(char *str, int *dst)
 {
@@ -48,4 +49,14 @@ int	max(int a, int b)
 		return (a);
 	else
 		return (b);
+}
+
+void	sleep_precisely(long start, long wait_time)
+{
+	while (1)
+	{
+		if (get_time() >= start + wait_time)
+			return ;
+		usleep(500);
+	}
 }

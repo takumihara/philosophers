@@ -7,7 +7,7 @@
 
 long	get_last_meal_time(t_philo_info *ph_info);
 
-bool is_starved(t_info *info, t_philo_info *ph_info)
+bool	is_starved(t_info *info, t_philo_info *ph_info)
 {
 	int		i;
 	bool	simulation_finished;
@@ -32,7 +32,7 @@ bool is_starved(t_info *info, t_philo_info *ph_info)
 	return (simulation_finished);
 }
 
-bool all_satisfied(t_info *info)
+bool	all_satisfied(t_info *info)
 {
 	if (get_satisfied_philo(info) == info->num_of_philo)
 	{
@@ -59,22 +59,4 @@ int	get_satisfied_philo(t_info *info)
 	satisfied_philo = info->satisfied_philo;
 	pthread_mutex_unlock(&info->mutex);
 	return (satisfied_philo);
-}
-
-void	set_last_meal_time(t_philo_info *ph_info, long last_meal_time)
-{
-
-	pthread_mutex_lock(&ph_info->common->mutex);
-	ph_info->last_meal_time = last_meal_time;
-	pthread_mutex_unlock(&ph_info->common->mutex);
-}
-
-long	get_last_meal_time(t_philo_info *ph_info)
-{
-	long	last_meal_time;
-
-	pthread_mutex_lock(&ph_info->common->mutex);
-	last_meal_time = ph_info->last_meal_time;
-	pthread_mutex_unlock(&ph_info->common->mutex);
-	return (last_meal_time);
 }

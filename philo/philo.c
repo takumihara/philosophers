@@ -13,14 +13,13 @@ void	ph_sleep(const t_philo_info *ph_info);
 void	ph_think(const t_philo_info *ph_info);
 
 bool	is_simulation_finished(const t_philo_info *ph_info);
-int		calc_interval(const t_philo_info *ph_info);
 
 void	*philosopher(void *arg)
 {
-	t_philo_info 	*ph_info;
+	t_philo_info	*ph_info;
 	bool			first_forks;
 
-	ph_info = (t_philo_info*)arg;
+	ph_info = (t_philo_info *)arg;
 	first_forks = true;
 	while (true)
 	{
@@ -54,38 +53,16 @@ void	ph_eat(t_philo_info *ph_info)
 		if (ph_info->left_meal_cnt == 0)
 			increment_satisfied_philo(ph_info->common);
 	}
-	ph_wait(get_time(), ph_info->common->time_to_eat);
+	sleep_precisely(get_time(), ph_info->common->time_to_eat);
 }
 
 void	ph_sleep(const t_philo_info *ph_info)
 {
 	print_log(ph_info, SLEEPING);
-	ph_wait(get_time(), ph_info->common->time_to_sleep);
+	sleep_precisely(get_time(), ph_info->common->time_to_sleep);
 }
 
 void	ph_think(const t_philo_info *ph_info)
 {
 	print_log(ph_info, THINKING);
-}
-
-void	ph_wait(long start, long wait_time)
-{
-	while (1)
-	{
-		if (get_time() >= start + wait_time)
-			return ;
-		usleep(500);
-	}
-}
-
-bool	is_simulation_finished(const t_philo_info *ph_info)
-{
-	bool	simulation_finished;
-
-	simulation_finished = false;
-	pthread_mutex_lock(&ph_info->common->mutex);
-	if (ph_info->common->simulation_finished)
-		simulation_finished = true;
-	pthread_mutex_unlock(&ph_info->common->mutex);
-	return (simulation_finished);
 }

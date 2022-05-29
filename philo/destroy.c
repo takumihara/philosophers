@@ -16,12 +16,11 @@ bool	destroy_program(t_info *info, pthread_t *philos, int num_of_philo)
 			return (false);
 		}
 	}
-	if (!destroy_mutexes(&info->mutex, 1) ||
-		!destroy_mutexes(info->forks, info->num_of_philo))
+	if (!destroy_mutexes(&info->mutex, 1)
+		|| !destroy_mutexes(info->forks, info->num_of_philo))
 		return (false);
 	return (true);
 }
-
 
 bool	destroy_mutexes(pthread_mutex_t *mutexes, int mutex_num)
 {
@@ -38,4 +37,3 @@ bool	destroy_mutexes(pthread_mutex_t *mutexes, int mutex_num)
 	}
 	return (true);
 }
-

@@ -41,18 +41,21 @@ bool	init_philos(t_info *info, t_philo_info *ph_info, pthread_t *philos);
 bool	init_mutexes(pthread_mutex_t *mutexes, int mutex_num);
 void	init_philo_info(t_philo_info *ph_info, t_info *info, int id);
 
-void	print_log(const t_philo_info *info, t_philo_status status);
-
 // philo.c
 void	*philosopher(void *arg_);
-void	ph_wait(long start, long wait_time);
+void	sleep_precisely(long start, long wait_time);
+
+// philo_utils.c
+int		calc_interval(const t_philo_info *ph_info);
+bool	is_simulation_finished(const t_philo_info *ph_info);
+void	print_log(const t_philo_info *info, t_philo_status status);
+int		get_satisfied_philo(t_info *info);
+void	set_last_meal_time(t_philo_info *ph_info, long last_meal_time);
 
 // monitor.c
 bool	is_starved(t_info *info, t_philo_info *ph_info);
 bool	all_satisfied(t_info *info);
 void	increment_satisfied_philo(t_info *info);
-int		get_satisfied_philo(t_info *info);
-void	set_last_meal_time(t_philo_info *ph_info, long last_meal_time);
 
 // ph_grab_forks.c
 bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_forks);

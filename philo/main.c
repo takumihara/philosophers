@@ -37,26 +37,3 @@ void	monitor(t_info *info, t_philo_info *ph_info)
 		usleep(500);
 	}
 }
-
-void	print_log(const t_philo_info *info, t_philo_status status)
-{
-	const long	timestamp = get_time() - info->common->start;
-
-	pthread_mutex_lock(&info->common->mutex);
-	if (status != DIED && info->common->simulation_finished)
-	{
-		pthread_mutex_unlock(&info->common->mutex);
-		return ;
-	}
-	if (status == TAKEN_FORK)
-		printf("%ld %d has taken a fork\n", timestamp, info->id);
-	else if (status == EATING)
-		printf("%ld %d is eating\n", timestamp, info->id);
-	else if (status == SLEEPING)
-		printf("%ld %d is sleeping\n", timestamp, info->id);
-	else if (status == THINKING)
-		printf("%ld %d is thinking\n", timestamp, info->id);
-	else if (status == DIED)
-		printf("%ld %d died\n", timestamp, info->id);
-	pthread_mutex_unlock(&info->common->mutex);
-}
