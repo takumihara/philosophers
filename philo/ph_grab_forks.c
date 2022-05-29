@@ -89,7 +89,7 @@ bool ph_grab_first_odd_forks(const t_philo_info *ph_info)
 	interval = max(0, calc_interval(ph_info));
 	one_loop = interval + ph_info->common->time_to_eat + ph_info->common->time_to_sleep;
 	next = (ph_info->id-1) * ph_info->common->time_to_eat % one_loop;
-	ph_wait(ph_info->common->start, next / 1000);
+	ph_wait(ph_info->common->start, next);
 	pthread_mutex_lock(&forks[ph_info->left]);
 	print_log(ph_info, TAKEN_FORK);
 	pthread_mutex_lock(&forks[ph_info->right]);

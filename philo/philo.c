@@ -7,7 +7,6 @@
 #include "include/philo.h"
 #include "include/utils.h"
 
-
 void	ph_drop_forks(const t_philo_info *ph_info);
 void	ph_eat(t_philo_info *ph_info);
 void	ph_sleep(const t_philo_info *ph_info);
@@ -16,18 +15,19 @@ void	ph_think(const t_philo_info *ph_info);
 bool	is_simulation_finished(const t_philo_info *ph_info);
 int		calc_interval(const t_philo_info *ph_info);
 
-void *philosopher(void *arg_)
+void	*philosopher(void *arg)
 {
-	t_philo_info 	*ph_info = (t_philo_info*)arg_;
+	t_philo_info 	*ph_info;
 	bool			first_forks;
 
+	ph_info = (t_philo_info*)arg;
 	first_forks = true;
-	while (1)
+	while (true)
 	{
 		if (is_simulation_finished(ph_info))
 			return (NULL);
 		if (!ph_grab_forks(ph_info, &first_forks))
-			continue;
+			continue ;
 		ph_eat(ph_info);
 		ph_drop_forks(ph_info);
 		ph_sleep(ph_info);
@@ -35,9 +35,9 @@ void *philosopher(void *arg_)
 	}
 }
 
-void ph_drop_forks(const t_philo_info *ph_info)
+void	ph_drop_forks(const t_philo_info *ph_info)
 {
-	pthread_mutex_t *forks;
+	pthread_mutex_t	*forks;
 
 	forks = ph_info->common->forks;
 	pthread_mutex_unlock(&forks[ph_info->left]);
@@ -54,13 +54,13 @@ void	ph_eat(t_philo_info *ph_info)
 		if (ph_info->left_meal_cnt == 0)
 			increment_satisfied_philo(ph_info->common);
 	}
-	ph_wait(get_time(), ph_info->common->time_to_eat / 1000);
+	ph_wait(get_time(), ph_info->common->time_to_eat);
 }
 
 void	ph_sleep(const t_philo_info *ph_info)
 {
 	print_log(ph_info, SLEEPING);
-	ph_wait(get_time(), ph_info->common->time_to_sleep / 1000);
+	ph_wait(get_time(), ph_info->common->time_to_sleep);
 }
 
 void	ph_think(const t_philo_info *ph_info)

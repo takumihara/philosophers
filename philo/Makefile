@@ -13,6 +13,7 @@ OBJS    	= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 CC      	= gcc
 #CFLAGS   	= -Wall -Wextra -Werror -fsanitize=thread
 #CFLAGS   	= -fsanitize=thread
+CFLAGS   	= -fsanitize=address
 
 all: $(NAME)
 
