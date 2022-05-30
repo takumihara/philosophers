@@ -49,11 +49,8 @@ bool	ph_grab_odd_forks(const t_philo_info *ph_info)
 bool	ph_grab_even_forks(const t_philo_info *ph_info)
 {
 	pthread_mutex_t		*forks;
-	const long			time_to_sleep = ph_info->common->time_to_sleep;
 
 	forks = ph_info->common->forks;
-	if (time_to_sleep == 0)
-		usleep(500);
 	if (ph_info->id % 2)
 		pthread_mutex_lock(&forks[ph_info->left]);
 	else

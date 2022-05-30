@@ -15,8 +15,11 @@ bool	init_program(int argc, char **argv, t_info *info, t_philo_info *ph_info)
 			  && info->num_of_philo >= 1
 			  && info->num_of_philo <= MAX_NUM_OF_PHILO
 			  && atoi_strict(argv[2], &info->time_to_die)
+			  && info->time_to_die >= MIN_TIME
 			  && atoi_strict(argv[3], &info->time_to_eat)
+			  && info->time_to_eat >= MIN_TIME
 			  && atoi_strict(argv[4], &info->time_to_sleep)
+			  && info->time_to_sleep >= MIN_TIME
 			  && (argc == 5 || atoi_strict(argv[5], &info->num_of_meal))))
 	{
 		printf(ERR_INVALID_ARGUMENT);
@@ -27,10 +30,8 @@ bool	init_program(int argc, char **argv, t_info *info, t_philo_info *ph_info)
 		init_philo_info(&ph_info[i], info, i + 1);
 	info->simulation_finished = false;
 	info->satisfied_philo = 0;
-	if (!init_mutexes(&info->mutex, 1)
-		|| !init_mutexes(info->forks, info->num_of_philo))
-		return (false);
-	return (true);
+	return (init_mutexes(&info->mutex, 1)
+		&& init_mutexes(info->forks, info->num_of_philo));
 }
 
 bool	init_philos(t_info *info, t_philo_info *ph_info, pthread_t *philos)
