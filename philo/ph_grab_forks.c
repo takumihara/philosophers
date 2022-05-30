@@ -101,7 +101,10 @@ bool	ph_grab_first_even_forks(const t_philo_info *ph_info)
 
 	forks = ph_info->common->forks;
 	if (ph_info->id % 2 == 0)
+	{
+		sleep_precisely(get_time(), ph_info->common->time_to_eat / 2);
 		return (false);
+	}
 	pthread_mutex_lock(&forks[ph_info->left]);
 	print_log(ph_info, TAKEN_FORK);
 	pthread_mutex_lock(&forks[ph_info->right]);

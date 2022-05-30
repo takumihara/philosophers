@@ -49,7 +49,7 @@ int	calc_interval(const t_philo_info *ph_info)
 	const int	time_to_think = time_to_eat * num_of_philo
 					- (time_to_eat + time_to_sleep) * n;
 
-	return (time_to_think / n - 1);
+	return (time_to_think / n);
 }
 
 void	set_last_meal_time(t_philo_info *ph_info, long last_meal_time)
