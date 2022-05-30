@@ -12,8 +12,6 @@ void	ph_eat(t_philo_info *ph_info);
 void	ph_sleep(const t_philo_info *ph_info);
 void	ph_think(const t_philo_info *ph_info);
 
-bool	is_simulation_finished(const t_philo_info *ph_info);
-
 void	*philosopher(void *arg)
 {
 	t_philo_info	*ph_info;

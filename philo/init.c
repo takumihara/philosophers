@@ -19,7 +19,7 @@ bool	init_program(int argc, char **argv, t_info *info, t_philo_info *ph_info)
 			  && atoi_strict(argv[4], &info->time_to_sleep)
 			  && (argc == 5 || atoi_strict(argv[5], &info->num_of_meal))))
 	{
-		printf("argument error \n");
+		printf(ERR_INVALID_ARGUMENT);
 		return (false);
 	}
 	i = -1;
@@ -44,8 +44,8 @@ bool	init_philos(t_info *info, t_philo_info *ph_info, pthread_t *philos)
 		ph_info[i].last_meal_time = info->start;
 		if (pthread_create(&philos[i], NULL, philosopher, &ph_info[i]) != 0)
 		{
-			perror("philo");
-			destroy_program(info, philos, i - 1);
+			printf(ERR_PTHREAD_CREATE);
+			destroy_program(info, philos, i);
 			return (false);
 		}
 	}
@@ -61,8 +61,8 @@ bool	init_mutexes(pthread_mutex_t *mutexes, int mutex_num)
 	{
 		if (pthread_mutex_init(&mutexes[i], NULL) != 0)
 		{
-			perror("philo");
-			destroy_mutexes(mutexes, i - 1);
+			printf(ERR_MUTEX_INIT);
+			destroy_mutexes(mutexes, i);
 			return (false);
 		}
 	}

@@ -1,11 +1,27 @@
 #include <pthread/pthread.h>
 #include <stdbool.h>
 #include <printf.h>
+#include <unistd.h>
 
 #include "include/philo.h"
 #include "include/utils.h"
 
-long	get_last_meal_time(t_philo_info *ph_info);
+static bool	is_starved(t_info *info, t_philo_info *ph_info);
+static bool	all_satisfied(t_info *info);
+static int	get_satisfied_philo(t_info *info);
+
+void	monitor(t_info *info, t_philo_info *ph_info)
+{
+	while (true)
+	{
+		if (is_starved(info, ph_info))
+			return ;
+		if (all_satisfied(info))
+			return ;
+		usleep(500);
+	}
+}
+
 
 bool	is_starved(t_info *info, t_philo_info *ph_info)
 {
@@ -34,7 +50,7 @@ bool	is_starved(t_info *info, t_philo_info *ph_info)
 
 bool	all_satisfied(t_info *info)
 {
-	if (get_satisfied_philo(info) == info->num_of_philo)
+	if (info->num_of_meal == 0 || get_satisfied_philo(info) == info->num_of_philo)
 	{
 		pthread_mutex_lock(&info->mutex);
 		info->simulation_finished = true;

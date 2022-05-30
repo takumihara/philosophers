@@ -12,7 +12,7 @@ bool	destroy_program(t_info *info, pthread_t *philos, int num_of_philo)
 	{
 		if (pthread_join(philos[i], NULL) != 0)
 		{
-			perror("philo");
+			printf(ERR_PTHREAD_JOIN);
 			return (false);
 		}
 	}
@@ -31,7 +31,7 @@ bool	destroy_mutexes(pthread_mutex_t *mutexes, int mutex_num)
 	{
 		if (pthread_mutex_destroy(&mutexes[i]) != 0)
 		{
-			perror("philo");
+			printf(ERR_MUTEX_DESTROY);
 			return (false);
 		}
 	}

@@ -5,6 +5,12 @@
 
 # define MAX_NUM_OF_PHILO 200
 
+# define ERR_INVALID_ARGUMENT "error: invalid arguments\n"
+# define ERR_PTHREAD_CREATE "error: failed at pthread_create()\n"
+# define ERR_MUTEX_INIT "error: failed at pthread_mutex_init()\n"
+# define ERR_MUTEX_DESTROY "error: failed at pthread_mutex_destroy()\n"
+# define ERR_PTHREAD_JOIN "error: failed at pthread_join()\n"
+
 typedef struct s_info {
 	int				num_of_philo;
 	int				time_to_eat;
@@ -43,18 +49,16 @@ void	init_philo_info(t_philo_info *ph_info, t_info *info, int id);
 
 // philo.c
 void	*philosopher(void *arg_);
-void	sleep_precisely(long start, long wait_time);
 
 // philo_utils.c
 int		calc_interval(const t_philo_info *ph_info);
 bool	is_simulation_finished(const t_philo_info *ph_info);
 void	print_log(const t_philo_info *info, t_philo_status status);
-int		get_satisfied_philo(t_info *info);
 void	set_last_meal_time(t_philo_info *ph_info, long last_meal_time);
+long	get_last_meal_time(t_philo_info *ph_info);
 
 // monitor.c
-bool	is_starved(t_info *info, t_philo_info *ph_info);
-bool	all_satisfied(t_info *info);
+void	monitor(t_info *info, t_philo_info *ph_info);
 void	increment_satisfied_philo(t_info *info);
 
 // ph_grab_forks.c
