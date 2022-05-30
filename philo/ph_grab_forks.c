@@ -40,7 +40,7 @@ bool	ph_grab_odd_forks(const t_philo_info *ph_info)
 		return (false);
 	forks = ph_info->common->forks;
 	interval = max(0, calc_interval(ph_info));
-	sleep_precisely(get_time(), interval / 1000);
+	sleep_precisely(get_time(), interval);
 	pthread_mutex_lock(&forks[ph_info->left]);
 	pthread_mutex_lock(&forks[ph_info->right]);
 	return (true);
