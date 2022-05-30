@@ -22,7 +22,6 @@ void	monitor(t_info *info, t_philo_info *ph_info)
 	}
 }
 
-
 bool	is_starved(t_info *info, t_philo_info *ph_info)
 {
 	int		i;
@@ -50,7 +49,8 @@ bool	is_starved(t_info *info, t_philo_info *ph_info)
 
 bool	all_satisfied(t_info *info)
 {
-	if (info->num_of_meal == 0 || get_satisfied_philo(info) == info->num_of_philo)
+	if (info->num_of_meal == 0
+		|| get_satisfied_philo(info) == info->num_of_philo)
 	{
 		pthread_mutex_lock(&info->mutex);
 		info->simulation_finished = true;
