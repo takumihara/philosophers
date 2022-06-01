@@ -32,10 +32,10 @@ static void	check_philo_status(t_info *info, pid_t *philos)
 	{
 		waitpid(-1, &status, 0);
 		exit_status = WEXITSTATUS(status);
-		printf("%d %d \n", i, exit_status);
+//		printf("%d %d \n", i, exit_status);
 		if (!someone_died && exit_status != ES_SATISFIED && exit_status != ES_ERR)
 		{
-			sem_wait(info->sem);
+			sem_wait(info->sem_out);
 			someone_died = true;
 			printf("%ld %d died\n", get_time() - info->start, exit_status);
 			if (!destroy_program(info, philos, info->num_of_philo))

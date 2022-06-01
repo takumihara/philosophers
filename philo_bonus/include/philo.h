@@ -10,6 +10,7 @@
 
 # define SEM_FORKS_ID "/forks"
 # define SEM_CHECK_ID "/check"
+# define SEM_OUT_ID "/philo_out"
 
 # define ES_ERR -1
 # define ES_SATISFIED 0
@@ -32,6 +33,7 @@ typedef struct s_info {
 	long	start;
 	sem_t	*forks;
 	sem_t	*sem;
+	sem_t	*sem_out;
 }	t_info;
 
 typedef struct s_philo_info {

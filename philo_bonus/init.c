@@ -29,10 +29,11 @@ bool	init_program(int argc, char **argv, t_info *info)
 	// todo: what is only the second failed. should I release the first?
 	sem_unlink(SEM_CHECK_ID);
 	info->sem = sem_open(SEM_CHECK_ID, O_CREAT | O_EXCL, 0600, 1);
-//	info->sem = sem_open(SEM_CHECK_ID, O_CREAT | O_EXCL, 0600, 1);
 	sem_unlink(SEM_FORKS_ID);
 	info->forks = sem_open(SEM_FORKS_ID, O_CREAT | O_EXCL, 0600, info->num_of_philo);
-	if (info->sem == SEM_FAILED || info->forks == SEM_FAILED)
+	sem_unlink(SEM_OUT_ID);
+	info->sem_out = sem_open(SEM_OUT_ID, O_CREAT | O_EXCL, 0600, 1);
+	if (info->sem == SEM_FAILED || info->forks == SEM_FAILED || info->sem_out == SEM_FAILED)
 	{
 		printf(ERR_SEM_OPEN);
 		return (false);
@@ -60,6 +61,8 @@ void	init_philos(t_info *info, pid_t *philos)
 			destroy_program(info, philos, i);
 			exit(EXIT_FAILURE);
 		}
+		else
+			philos[i] = pid;
 	}
 }
 

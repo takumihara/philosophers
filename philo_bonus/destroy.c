@@ -1,4 +1,3 @@
-#include <pthread.h>
 #include <stdio.h>
 #include <signal.h>
 #include <errno.h>
@@ -15,17 +14,17 @@ bool	destroy_program(t_info *info, pid_t *philos, int num_of_philo)
 	{
 		if (kill(philos[i], SIGKILL) != 0)
 		{
+			perror("kill");
 			if (errno == ESRCH)
 				continue ;
 			printf(ERR_KILL);
 			return (false);
 		}
 	}
-	printf("%ld \n", get_time() - info->start);
 	if (sem_close(info->forks) != 0 || sem_close(info->sem) != 0)
+//	if (sem_close(info->forks) != 0 || sem_close(info->sem) != 0 || sem_close(info->sem_out) != 0)
 	{
 		printf(ERR_SEM_CLOSE);
-		perror("sem_close");
 		return (false);
 	}
 	if (sem_unlink(SEM_FORKS_ID) != 0 || sem_unlink(SEM_CHECK_ID) != 0)

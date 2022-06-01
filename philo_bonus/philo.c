@@ -8,7 +8,7 @@
 #include "include/philo.h"
 #include "include/utils.h"
 
-static void	prep_monitor(t_philo_info *ph_info);
+pthread_t	prep_monitor(t_philo_info *ph_info);
 void	ph_drop_forks(const t_philo_info *ph_info);
 bool	ph_eat(t_philo_info *ph_info);
 void	ph_sleep(const t_philo_info *ph_info);
@@ -18,16 +18,21 @@ int		philosopher(t_philo_info *ph_info)
 {
 	bool	first_forks;
 	bool	satisfied;
+	int		res;
+	pthread_t	pthread;
 
 	if (ph_info->left_meal_cnt == 0)
 		return (ES_SATISFIED);
 	first_forks = true;
 	satisfied = false;
-	prep_monitor(ph_info);
+	pthread = prep_monitor(ph_info);
 	while (true)
 	{
 		if (is_starved(ph_info))
-			return (ph_info->id);
+		{
+			res = ph_info->id;
+			break ;
+		}
 		if (!ph_grab_forks(ph_info, &first_forks))
 			continue ;
 		satisfied = ph_eat(ph_info);
@@ -37,14 +42,17 @@ int		philosopher(t_philo_info *ph_info)
 			sem_wait(ph_info->common->sem);
 			ph_info->simulation_finished = true;
 			sem_post(ph_info->common->sem);
-			return (ES_SATISFIED);
+			res = ES_SATISFIED;
+			break ;
 		}
 		ph_sleep(ph_info);
 		ph_think(ph_info);
 	}
+	pthread_join(pthread, NULL);
+	return (res);
 }
 
-void	prep_monitor(t_philo_info *ph_info)
+pthread_t	prep_monitor(t_philo_info *ph_info)
 {
 	pthread_t	pthread;
 
@@ -53,11 +61,7 @@ void	prep_monitor(t_philo_info *ph_info)
 		printf(ERR_PTHREAD_CREATE);
 		exit (ES_ERR);
 	}
-	if (pthread_detach(pthread) != 0)
-	{
-		printf(ERR_PTHREAD_DETACH);
-		exit (ES_ERR);
-	}
+	return (pthread);
 }
 
 void	ph_drop_forks(const t_philo_info *ph_info)
