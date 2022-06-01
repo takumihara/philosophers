@@ -1,9 +1,9 @@
-NAME    		= philo
+NAME    		= philo_bonus
 CURRENT_PATH	= .
 
 SRCDIR 		= ./src
 SRC_PATHS		= $(CURRENT_PATH)
-SRCS			= destroy.c init.c main.c monitor.c ph_grab_forks.c philo.c philo_utils.c utils.c
+SRCS			= $(foreach path, $(SRC_PATHS), $(wildcard $(path)/*.c))
 
 VPATH		= $(CURRENT_PATH)
 
@@ -12,7 +12,6 @@ OBJS    	= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 
 CC      	= gcc
 #CFLAGS   	= -Wall -Wextra -Werror -fsanitize=thread
-#CFLAGS   	= -fsanitize=thread
 #CFLAGS   	= -fsanitize=address
 
 all: $(NAME)
@@ -36,6 +35,8 @@ run:
 	./$(NAME)
 
 norm:
-	norminette $(SRC_PATHS) | grep Error
+	norminette $(SRC_PATHS) | grep -v Header
 
-.PHONY: all bonus clean fclean re
+bonus: $(NAME)
+
+.PHONY: all bonus clean fclean re bonus

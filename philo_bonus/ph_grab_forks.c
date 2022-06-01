@@ -1,8 +1,5 @@
-#include <pthread.h>
 #include <unistd.h>
 #include <stdbool.h>
-#include <string.h>
-#include <printf.h>
 
 #include "include/philo.h"
 #include "include/utils.h"
@@ -33,41 +30,41 @@ bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_forks)
 
 bool	ph_grab_odd_forks(const t_philo_info *ph_info)
 {
-	pthread_mutex_t	*forks;
+	sem_t	*forks;
 	long			interval;
 
-	if (ph_info->left == ph_info->right)
+	if (ph_info->common->num_of_philo == 1)
 		return (false);
 	forks = ph_info->common->forks;
 	interval = max(0, calc_interval(ph_info));
 	sleep_precisely(get_time(), interval);
-	pthread_mutex_lock(&forks[ph_info->left]);
+	sem_wait(forks);
 	print_log(ph_info, TAKEN_FORK);
-	pthread_mutex_lock(&forks[ph_info->right]);
+	sem_wait(forks);
 	print_log(ph_info, TAKEN_FORK);
 	return (true);
 }
 
 bool	ph_grab_even_forks(const t_philo_info *ph_info)
 {
-	pthread_mutex_t		*forks;
+	sem_t		*forks;
 
 	forks = ph_info->common->forks;
 	if (ph_info->id % 2)
-		pthread_mutex_lock(&forks[ph_info->left]);
+		sem_wait(forks);
 	else
 	{
 		usleep(200);
-		pthread_mutex_lock(&forks[ph_info->right]);
+		sem_wait(forks);
 	}
 	print_log(ph_info, TAKEN_FORK);
 	if (ph_info->id % 2)
 	{
 		usleep(200);
-		pthread_mutex_lock(&forks[ph_info->right]);
+		sem_wait(forks);
 	}
 	else
-		pthread_mutex_lock(&forks[ph_info->left]);
+		sem_wait(forks);
 	print_log(ph_info, TAKEN_FORK);
 	return (true);
 }
@@ -75,28 +72,28 @@ bool	ph_grab_even_forks(const t_philo_info *ph_info)
 bool	ph_grab_first_odd_forks(const t_philo_info *ph_info)
 {
 	const t_info	*info = ph_info->common;
-	pthread_mutex_t	*forks;
+	sem_t	*forks;
 	long			interval;
 	long			one_loop;
 	long			next;
 
-	if (ph_info->left == ph_info->right)
+	if (ph_info->common->num_of_philo == 1)
 		return (false);
 	forks = ph_info->common->forks;
 	interval = max(0, calc_interval(ph_info));
 	one_loop = interval + info->time_to_eat + info->time_to_sleep;
 	next = (ph_info->id - 1) * info->time_to_eat % one_loop;
 	sleep_precisely(info->start, next);
-	pthread_mutex_lock(&forks[ph_info->left]);
+	sem_wait(forks);
 	print_log(ph_info, TAKEN_FORK);
-	pthread_mutex_lock(&forks[ph_info->right]);
+	sem_wait(forks);
 	print_log(ph_info, TAKEN_FORK);
 	return (true);
 }
 
 bool	ph_grab_first_even_forks(const t_philo_info *ph_info)
 {
-	pthread_mutex_t		*forks;
+	sem_t		*forks;
 
 	forks = ph_info->common->forks;
 	if (ph_info->id % 2 == 0)
@@ -104,9 +101,9 @@ bool	ph_grab_first_even_forks(const t_philo_info *ph_info)
 		sleep_precisely(get_time(), ph_info->common->time_to_eat / 2);
 		return (false);
 	}
-	pthread_mutex_lock(&forks[ph_info->left]);
+	sem_wait(forks);
 	print_log(ph_info, TAKEN_FORK);
-	pthread_mutex_lock(&forks[ph_info->right]);
+	sem_wait(forks);
 	print_log(ph_info, TAKEN_FORK);
 	return (true);
 }
