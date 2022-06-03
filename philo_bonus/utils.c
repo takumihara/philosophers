@@ -32,7 +32,7 @@ bool	atoi_strict(char *str, int *dst)
 	return (false);
 }
 
-long long	get_mtime(void)
+long long	get_msec(void)
 {
 	struct timeval	tp;
 	long long			milliseconds;
@@ -55,7 +55,7 @@ void	msleep_precise(long long start, long long wait_time)
 {
 	while (1)
 	{
-		if (get_mtime() >= start + wait_time)
+		if (get_msec() >= start + wait_time)
 			return ;
 		usleep(500);
 	}

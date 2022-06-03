@@ -17,7 +17,7 @@ bool	is_starved(const t_philo_info *ph_info)
 
 void	print_log(const t_philo_info *ph_info, t_philo_status status)
 {
-	const long long	timestamp = get_mtime() - ph_info->common->start;
+	const long long	timestamp = get_msec() - ph_info->common->start;
 
 	 if (status != DIED && ph_info->simulation_finished)
 		return ;

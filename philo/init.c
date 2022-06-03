@@ -40,7 +40,7 @@ bool	init_philos(t_info *info, t_philo_info *ph_info, pthread_t *philos)
 	int	i;
 
 	i = -1;
-	info->start = get_mtime();
+	info->start = get_msec();
 	while (++i < info->num_of_philo)
 	{
 		ph_info[i].last_meal_time = info->start;

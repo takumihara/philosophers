@@ -2,7 +2,7 @@
 # define UTILS_H
 
 bool	atoi_strict(char *str, int *dst);
-long long	get_mtime(void);
+long long	get_msec(void);
 int		max(int a, int b);
 void	msleep_precise(long long start, long long wait_time);
 

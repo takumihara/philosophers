@@ -32,15 +32,26 @@ bool	atoi_strict(char *str, int *dst)
 	return (false);
 }
 
-long long	get_mtime(void)
+long long	get_msec(void)
 {
 	struct timeval	tp;
-	long long			milliseconds;
+	long long		msec;
 
 	gettimeofday(&tp, NULL);
-	milliseconds = tp.tv_sec * 1000;
-	milliseconds += tp.tv_usec / 1000;
-	return (milliseconds);
+	msec = tp.tv_sec * 1000;
+	msec += tp.tv_usec / 1000;
+	return (msec);
+}
+
+long long	get_usec(void)
+{
+	struct timeval	tp;
+	long long		usec;
+
+	gettimeofday(&tp, NULL);
+	usec = tp.tv_sec * 1000 * 1000;
+	usec += tp.tv_usec;
+	return (usec);
 }
 
 int	max(int a, int b)
@@ -55,7 +66,7 @@ void	msleep_precise(long long start, long long wait_time)
 {
 	while (1)
 	{
-		if (get_mtime() >= start + wait_time)
+		if (get_msec() >= start + wait_time)
 			return ;
 		usleep(500);
 	}

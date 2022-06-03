@@ -43,7 +43,7 @@ void	ph_drop_forks(const t_philo_info *ph_info)
 
 void	ph_eat(t_philo_info *ph_info)
 {
-	set_last_meal_time(ph_info, get_mtime());
+	set_last_meal_time(ph_info, get_msec());
 	print_log(ph_info, EATING);
 	if (ph_info->left_meal_cnt >= 1)
 	{
@@ -51,13 +51,13 @@ void	ph_eat(t_philo_info *ph_info)
 		if (ph_info->left_meal_cnt == 0)
 			increment_satisfied_philo(ph_info->common);
 	}
-	msleep_precise(get_mtime(), ph_info->common->time_to_eat);
+	msleep_precise(get_msec(), ph_info->common->time_to_eat);
 }
 
 void	ph_sleep(const t_philo_info *ph_info)
 {
 	print_log(ph_info, SLEEPING);
-	msleep_precise(get_mtime(), ph_info->common->time_to_sleep);
+	msleep_precise(get_msec(), ph_info->common->time_to_sleep);
 }
 
 void	ph_think(const t_philo_info *ph_info)

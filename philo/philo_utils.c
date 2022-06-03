@@ -19,7 +19,7 @@ bool	is_simulation_finished(const t_philo_info *ph_info)
 
 void	print_log(const t_philo_info *info, t_philo_status status)
 {
-	const long long	timestamp = get_mtime() - info->common->start;
+	const long long	timestamp = get_msec() - info->common->start;
 
 	pthread_mutex_lock(&info->common->mutex);
 	if (status != DIED && info->common->simulation_finished)
