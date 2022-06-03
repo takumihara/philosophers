@@ -1,6 +1,6 @@
 #include <pthread.h>
 #include <string.h>
-#include <printf.h>
+#include <stdio.h>
 #include <sys/fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -26,7 +26,6 @@ bool	init_program(int argc, char **argv, t_info *info)
 		printf(ERR_INVALID_ARGUMENT);
 		return (false);
 	}
-	// todo: what is only the second failed. should I release the first?
 	sem_unlink(SEM_CHECK_ID);
 	info->sem = sem_open(SEM_CHECK_ID, O_CREAT | O_EXCL, 0600, 1);
 	sem_unlink(SEM_FORKS_ID);
@@ -36,6 +35,7 @@ bool	init_program(int argc, char **argv, t_info *info)
 	if (info->sem == SEM_FAILED || info->forks == SEM_FAILED || info->sem_out == SEM_FAILED)
 	{
 		printf(ERR_SEM_OPEN);
+		destroy_program(info, NULL, 0);
 		return (false);
 	}
 	return (true);

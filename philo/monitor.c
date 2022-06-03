@@ -1,6 +1,6 @@
-#include <pthread/pthread.h>
+#include <pthread.h>
 #include <stdbool.h>
-#include <printf.h>
+#include <stdio.h>
 #include <unistd.h>
 
 #include "include/philo.h"

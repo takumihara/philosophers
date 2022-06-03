@@ -1,11 +1,9 @@
 #include <stdlib.h>
 #include <signal.h>
-#include <printf.h>
 
 #include "include/philo.h"
-#include "include/utils.h"
 
-static void	check_philo_status(t_info *info, pid_t *philos);
+static bool	check_philo_status(t_info *info, pid_t *philos);
 
 int	main(int argc, char **argv)
 {
@@ -15,11 +13,12 @@ int	main(int argc, char **argv)
 	if (!init_program(argc, argv, &info))
 		return (EXIT_FAILURE);
 	init_philos(&info, philos);
-	check_philo_status(&info, philos);
+	if (!check_philo_status(&info, philos))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-static void	check_philo_status(t_info *info, pid_t *philos)
+static bool	check_philo_status(t_info *info, pid_t *philos)
 {
 	int				status;
 	volatile int	i;
@@ -32,14 +31,14 @@ static void	check_philo_status(t_info *info, pid_t *philos)
 	{
 		waitpid(-1, &status, 0);
 		exit_status = WEXITSTATUS(status);
-//		printf("%d %d \n", i, exit_status);
 		if (!someone_died && exit_status != ES_SATISFIED && exit_status != ES_ERR)
 		{
-			sem_wait(info->sem_out);
 			someone_died = true;
-			printf("%ld %d died\n", get_time() - info->start, exit_status);
 			if (!destroy_program(info, philos, info->num_of_philo))
-				return ;
+				return (false);
 		}
 	}
+	if (!someone_died && !destroy_program(info, philos, info->num_of_philo))
+		return (false);
+	return (true);
 }

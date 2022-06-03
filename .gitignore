@@ -1,4 +1,5 @@
 philo/philo
+philo_bonus/philo_bonus
 .DS_Store
 cmake-build-debug
 CMakeLists.txt

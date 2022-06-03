@@ -1,6 +1,6 @@
 #include <pthread.h>
 #include <stdbool.h>
-#include <printf.h>
+#include <stdio.h>
 
 #include "include/philo.h"
 #include "include/utils.h"
@@ -19,6 +19,8 @@ void	print_log(const t_philo_info *ph_info, t_philo_status status)
 {
 	const long	timestamp = get_time() - ph_info->common->start;
 
+	 if (status != DIED && ph_info->simulation_finished)
+		return ;
 	sem_wait(ph_info->common->sem_out);
 	if (status == TAKEN_FORK)
 		printf("%ld %d has taken a fork\n", timestamp, ph_info->id);
@@ -28,7 +30,10 @@ void	print_log(const t_philo_info *ph_info, t_philo_status status)
 		printf("%ld %d is sleeping\n", timestamp, ph_info->id);
 	else if (status == THINKING)
 		printf("%ld %d is thinking\n", timestamp, ph_info->id);
-	sem_post(ph_info->common->sem_out);
+	else if (status == DIED)
+		printf("%ld %d died\n", timestamp, ph_info->id);
+	if (status != DIED)
+		sem_post(ph_info->common->sem_out);
 }
 
 int	calc_interval(const t_philo_info *ph_info)

@@ -1,6 +1,6 @@
 #include <pthread.h>
 #include <string.h>
-#include <printf.h>
+#include <stdio.h>
 
 #include "include/philo.h"
 #include "include/utils.h"
@@ -32,7 +32,7 @@ bool	init_program(int argc, char **argv, t_info *info, t_philo_info *ph_info)
 	info->satisfied_philo = 0;
 	return (init_mutexes(&info->mutex, 1)
 		&& (init_mutexes(info->forks, info->num_of_philo)
-		|| (destroy_mutexes(&info->mutex, 1) && false));
+		|| (destroy_mutexes(&info->mutex, 1) && false)));
 }
 
 bool	init_philos(t_info *info, t_philo_info *ph_info, pthread_t *philos)

@@ -3,34 +3,51 @@
 #include <errno.h>
 
 #include "include/philo.h"
-#include "include/utils.h"
 
-bool	destroy_program(t_info *info, pid_t *philos, int num_of_philo)
+bool	destroy_philos(pid_t *philos, int num_of_philo)
 {
 	int	i;
 
+	if (!philos)
+		return (true);
 	i = -1;
 	while (++i < num_of_philo)
 	{
 		if (kill(philos[i], SIGKILL) != 0)
 		{
-			perror("kill");
 			if (errno == ESRCH)
 				continue ;
 			printf(ERR_KILL);
 			return (false);
 		}
 	}
-	if (sem_close(info->forks) != 0 || sem_close(info->sem) != 0)
-//	if (sem_close(info->forks) != 0 || sem_close(info->sem) != 0 || sem_close(info->sem_out) != 0)
+	return (true);
+}
+
+bool	destroy_sem(sem_t *sem, char *sem_id)
+{
+	if (sem == SEM_FAILED)
+		return (true);
+	if (sem_close(sem) != 0)
 	{
 		printf(ERR_SEM_CLOSE);
 		return (false);
 	}
-	if (sem_unlink(SEM_FORKS_ID) != 0 || sem_unlink(SEM_CHECK_ID) != 0)
+	if (sem_unlink(sem_id) != 0)
 	{
 		printf(ERR_SEM_UNLINK);
 		return (false);
 	}
 	return (true);
+}
+
+bool	destroy_program(t_info *info, pid_t *philos, int num_of_philo)
+{
+	bool	res;
+
+	res = destroy_philos(philos, num_of_philo);
+	res &= destroy_sem(info->sem, SEM_CHECK_ID);
+	res &= destroy_sem(info->forks, SEM_FORKS_ID);
+	res &= destroy_sem(info->sem_out, SEM_OUT_ID);
+	return (res);
 }

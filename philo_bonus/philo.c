@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <string.h>
-#include <printf.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "include/philo.h"
@@ -30,7 +30,7 @@ int		philosopher(t_philo_info *ph_info)
 	{
 		if (is_starved(ph_info))
 		{
-			res = ph_info->id;
+			res = ES_STARVED;
 			break ;
 		}
 		if (!ph_grab_forks(ph_info, &first_forks))
@@ -48,21 +48,11 @@ int		philosopher(t_philo_info *ph_info)
 		ph_sleep(ph_info);
 		ph_think(ph_info);
 	}
-	pthread_join(pthread, NULL);
+	if (pthread_join(pthread, NULL) != 0)
+		printf(ERR_PTHREAD_JOIN);
 	return (res);
 }
 
-pthread_t	prep_monitor(t_philo_info *ph_info)
-{
-	pthread_t	pthread;
-
-	if (pthread_create(&pthread, NULL, monitor, ph_info) != 0)
-	{
-		printf(ERR_PTHREAD_CREATE);
-		exit (ES_ERR);
-	}
-	return (pthread);
-}
 
 void	ph_drop_forks(const t_philo_info *ph_info)
 {

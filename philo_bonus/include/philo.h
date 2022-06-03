@@ -12,12 +12,13 @@
 # define SEM_CHECK_ID "/check"
 # define SEM_OUT_ID "/philo_out"
 
-# define ES_ERR -1
-# define ES_SATISFIED 0
+# define ES_ERR 0
+# define ES_SATISFIED 1
+# define ES_STARVED 2
 
 # define ERR_INVALID_ARGUMENT "error: invalid arguments\n"
 # define ERR_PTHREAD_CREATE "error: failed at pthread_create()\n"
-# define ERR_PTHREAD_DETACH "error: failed at pthread_detach()\n"
+# define ERR_PTHREAD_JOIN "error: failed at pthread_join()\n"
 # define ERR_SEM_OPEN "error: failed at sem_open()\n"
 # define ERR_SEM_CLOSE "error: failed at sem_close()\n"
 # define ERR_SEM_UNLINK "error: failed at sem_unlink()\n"
@@ -50,6 +51,7 @@ typedef enum e_philo_status {
 	EATING,
 	SLEEPING,
 	THINKING,
+	DIED,
 }	t_philo_status;
 
 bool	init_program(int argc, char **argv, t_info *info);
@@ -67,7 +69,7 @@ void	set_last_meal_time(t_philo_info *ph_info, long last_meal_time);
 long	get_last_meal_time(t_philo_info *ph_info);
 
 // monitor.c
-void	*monitor(void *arg);
+pthread_t	prep_monitor(t_philo_info *ph_info);
 
 // ph_grab_forks.c
 bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_forks);

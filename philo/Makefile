@@ -10,7 +10,7 @@ VPATH		= $(CURRENT_PATH)
 OBJDIR  	= ./obj
 OBJS    	= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 
-CC      	= gcc
+CC      	= gcc -pthread
 #CFLAGS   	= -Wall -Wextra -Werror -fsanitize=thread
 #CFLAGS   	= -fsanitize=thread
 #CFLAGS   	= -fsanitize=address
