@@ -30,8 +30,8 @@ bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_forks)
 
 bool	ph_grab_odd_forks(const t_philo_info *ph_info)
 {
-	sem_t	*forks;
-	long long			interval;
+	sem_t		*forks;
+	long long	interval;
 
 	if (ph_info->common->num_of_philo == 1)
 		return (false);
@@ -72,10 +72,10 @@ bool	ph_grab_even_forks(const t_philo_info *ph_info)
 bool	ph_grab_first_odd_forks(const t_philo_info *ph_info)
 {
 	const t_info	*info = ph_info->common;
-	sem_t	*forks;
-	long long			interval;
-	long long			one_loop;
-	long long			next;
+	sem_t			*forks;
+	long long		interval;
+	long long		one_loop;
+	long long		next;
 
 	if (ph_info->common->num_of_philo == 1)
 		return (false);

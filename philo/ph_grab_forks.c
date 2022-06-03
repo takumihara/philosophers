@@ -34,7 +34,7 @@ bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_forks)
 bool	ph_grab_odd_forks(const t_philo_info *ph_info)
 {
 	pthread_mutex_t	*forks;
-	long long			interval;
+	long long		interval;
 
 	if (ph_info->left == ph_info->right)
 		return (false);
@@ -82,9 +82,9 @@ bool	ph_grab_first_odd_forks(const t_philo_info *ph_info)
 {
 	const t_info	*info = ph_info->common;
 	pthread_mutex_t	*forks;
-	long long			interval;
-	long long			one_loop;
-	long long			next;
+	long long		interval;
+	long long		one_loop;
+	long long		next;
 
 	if (ph_info->left == ph_info->right)
 		return (false);

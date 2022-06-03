@@ -12,7 +12,7 @@ void	ph_eat(t_philo_info *ph_info);
 void	ph_sleep(const t_philo_info *ph_info);
 void	ph_think(const t_philo_info *ph_info);
 
-void	*philosopher(void *arg)
+void	*do_philo(void *arg)
 {
 	t_philo_info	*ph_info;
 	bool			first_forks;

@@ -7,7 +7,6 @@
 
 static bool	parse_args(int argc, char **argv, t_info *info);
 
-
 bool	init_program(int argc, char **argv, t_info *info, t_philo_info *ph_info)
 {
 	int	i;
@@ -27,16 +26,16 @@ bool	parse_args(int argc, char **argv, t_info *info)
 {
 	info->num_of_meal = -1;
 	if (!((argc == 5 || argc == 6)
-		  && atoi_strict(argv[1], &info->num_of_philo)
-		  && info->num_of_philo >= 1
-		  && info->num_of_philo <= MAX_NUM_OF_PHILO
-		  && atoi_strict(argv[2], &info->time_to_die)
-		  && info->time_to_die >= MIN_MSEC
-		  && atoi_strict(argv[3], &info->time_to_eat)
-		  && info->time_to_eat >= MIN_MSEC
-		  && atoi_strict(argv[4], &info->time_to_sleep)
-		  && info->time_to_sleep >= MIN_MSEC
-		  && (argc == 5 || atoi_strict(argv[5], &info->num_of_meal))))
+			&& atoi_strict(argv[1], &info->num_of_philo)
+			&& info->num_of_philo >= 1
+			&& info->num_of_philo <= MAX_NUM_OF_PHILO
+			&& atoi_strict(argv[2], &info->time_to_die)
+			&& info->time_to_die >= MIN_MSEC
+			&& atoi_strict(argv[3], &info->time_to_eat)
+			&& info->time_to_eat >= MIN_MSEC
+			&& atoi_strict(argv[4], &info->time_to_sleep)
+			&& info->time_to_sleep >= MIN_MSEC
+			&& (argc == 5 || atoi_strict(argv[5], &info->num_of_meal))))
 	{
 		printf(ERR_INVALID_ARGUMENT);
 		return (false);
@@ -56,7 +55,7 @@ bool	init_philos(t_info *info, t_philo_info *ph_info, pthread_t *philos)
 	while (++i < info->num_of_philo)
 	{
 		ph_info[i].last_meal_time = info->start;
-		if (pthread_create(&philos[i], NULL, philosopher, &ph_info[i]) != 0)
+		if (pthread_create(&philos[i], NULL, do_philo, &ph_info[i]) != 0)
 		{
 			printf(ERR_PTHREAD_CREATE);
 			destroy_program(info, philos, i);

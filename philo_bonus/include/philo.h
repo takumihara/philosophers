@@ -26,24 +26,24 @@
 # define ERR_KILL "error: failed at kill()\n"
 
 typedef struct s_info {
-	int		num_of_philo;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		time_to_die;
-	int		num_of_meal;
+	int			num_of_philo;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			time_to_die;
+	int			num_of_meal;
 	long long	start;
-	sem_t	*forks;
-	sem_t	*sem;
-	sem_t	*sem_out;
+	sem_t		*forks;
+	sem_t		*sem;
+	sem_t		*sem_out;
 }	t_info;
 
 typedef struct s_philo_info {
-	int		id;
+	int			id;
 	long long	last_meal_time;
-	int		left_meal_cnt;
-	bool	is_starved;
-	bool	simulation_finished;
-	t_info	*common;
+	int			left_meal_cnt;
+	bool		is_starved;
+	bool		simulation_finished;
+	t_info		*common;
 }	t_philo_info;
 
 typedef enum e_philo_status {
@@ -54,27 +54,27 @@ typedef enum e_philo_status {
 	DIED,
 }	t_philo_status;
 
-bool	init_program(int argc, char **argv, t_info *info);
-void	init_philos(t_info *info, pid_t *philos);
-void	init_philo_info(t_philo_info *ph_info, t_info *info, int id);
+bool		init_program(int argc, char **argv, t_info *info);
+void		init_philos(t_info *info, pid_t *philos);
+void		init_philo_info(t_philo_info *ph_info, t_info *info, int id);
 
 // philo.c
-int		philosopher(t_philo_info *ph_info);
+int			ph_loop(t_philo_info *ph_info);
 
 // philo_utils.c
-int		calc_interval(const t_philo_info *ph_info);
-bool	is_starved(const t_philo_info *ph_info);
-void	print_log(const t_philo_info *info, t_philo_status status);
-void	set_last_meal_time(t_philo_info *ph_info, long long last_meal_time);
+int			calc_interval(const t_philo_info *ph_info);
+bool		is_starved(const t_philo_info *ph_info);
+void		print_log(const t_philo_info *info, t_philo_status status);
+void		set_last_meal_time(t_philo_info *ph_info, long long last_meal_time);
 long long	get_last_meal_time(t_philo_info *ph_info);
 
 // monitor.c
 pthread_t	prep_monitor(t_philo_info *ph_info);
 
 // ph_grab_forks.c
-bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_forks);
+bool		ph_grab_forks(const t_philo_info *ph_info, bool *first_forks);
 
 // destroy.c
-bool	destroy_program(t_info *info, pid_t *philos, int num_of_philo);
+bool		destroy_program(t_info *info, pid_t *philos, int num_of_philo);
 
 #endif //PHILO_H

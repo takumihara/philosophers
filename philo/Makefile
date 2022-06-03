@@ -36,6 +36,6 @@ run:
 	./$(NAME)
 
 norm:
-	norminette $(SRC_PATHS) | grep Error
+	norminette $(SRC_PATHS) | grep -v Header
 
 .PHONY: all bonus clean fclean re

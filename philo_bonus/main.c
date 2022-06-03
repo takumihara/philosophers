@@ -31,7 +31,9 @@ static bool	check_philo_status(t_info *info, pid_t *philos)
 	{
 		waitpid(-1, &status, 0);
 		exit_status = WEXITSTATUS(status);
-		if (!someone_died && exit_status != ES_SATISFIED && exit_status != ES_ERR)
+		if (!someone_died
+			&& exit_status != ES_SATISFIED
+			&& exit_status != ES_ERR)
 		{
 			someone_died = true;
 			if (!destroy_program(info, philos, info->num_of_philo))

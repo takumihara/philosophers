@@ -24,8 +24,8 @@ void	monitor(t_info *info, t_philo_info *ph_info)
 
 bool	is_starved(t_info *info, t_philo_info *ph_info)
 {
-	int		i;
-	bool	simulation_finished;
+	int			i;
+	bool		simulation_finished;
 	long long	last_meal_time;
 
 	i = 0;

@@ -18,7 +18,7 @@ typedef struct s_info {
 	int				time_to_sleep;
 	int				time_to_die;
 	int				num_of_meal;
-	long long			start;
+	long long		start;
 	pthread_mutex_t	forks[MAX_NUM_OF_PHILO];
 	pthread_mutex_t	mutex;
 	bool			simulation_finished;
@@ -26,12 +26,12 @@ typedef struct s_info {
 }	t_info;
 
 typedef struct s_philo_info {
-	int		id;
-	int		left;
-	int		right;
+	int			id;
+	int			left;
+	int			right;
 	long long	last_meal_time;
-	int		left_meal_cnt;
-	t_info	*common;
+	int			left_meal_cnt;
+	t_info		*common;
 }	t_philo_info;
 
 typedef enum e_philo_status {
@@ -42,31 +42,31 @@ typedef enum e_philo_status {
 	DIED,
 }	t_philo_status;
 
-bool	init_program(
-			int argc, char **argv, t_info *info, t_philo_info *ph_info);
-bool	init_philos(t_info *info, t_philo_info *ph_info, pthread_t *philos);
-bool	init_mutexes(pthread_mutex_t *mutexes, int mutex_num);
-void	init_philo_info(t_philo_info *ph_info, t_info *info, int id);
+bool		init_program(
+				int argc, char **argv, t_info *info, t_philo_info *ph_info);
+bool		init_philos(t_info *info, t_philo_info *ph_info, pthread_t *philos);
+bool		init_mutexes(pthread_mutex_t *mutexes, int mutex_num);
+void		init_philo_info(t_philo_info *ph_info, t_info *info, int id);
 
 // philo.c
-void	*philosopher(void *arg_);
+void		*do_philo(void *arg_);
 
 // philo_utils.c
-int		calc_interval(const t_philo_info *ph_info);
-bool	is_simulation_finished(const t_philo_info *ph_info);
-void	print_log(const t_philo_info *info, t_philo_status status);
-void	set_last_meal_time(t_philo_info *ph_info, long long last_meal_time);
+int			calc_interval(const t_philo_info *ph_info);
+bool		is_simulation_finished(const t_philo_info *ph_info);
+void		print_log(const t_philo_info *info, t_philo_status status);
+void		set_last_meal_time(t_philo_info *ph_info, long long last_meal_time);
 long long	get_last_meal_time(t_philo_info *ph_info);
 
 // monitor.c
-void	monitor(t_info *info, t_philo_info *ph_info);
-void	increment_satisfied_philo(t_info *info);
+void		monitor(t_info *info, t_philo_info *ph_info);
+void		increment_satisfied_philo(t_info *info);
 
 // ph_grab_forks.c
-bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_forks);
+bool		ph_grab_forks(const t_philo_info *ph_info, bool *first_forks);
 
 // destroy.c
-bool	destroy_program(t_info *info, pthread_t *philos, int num_of_philo);
-bool	destroy_mutexes(pthread_mutex_t *mutexes, int mutex_num);
+bool		destroy_program(t_info *info, pthread_t *philos, int num_of_philo);
+bool		destroy_mutexes(pthread_mutex_t *mutexes, int mutex_num);
 
 #endif //PHILO_H
