@@ -32,17 +32,6 @@ bool	atoi_strict(char *str, int *dst)
 	return (false);
 }
 
-long long	get_msec(void)
-{
-	struct timeval	tp;
-	long long		msec;
-
-	gettimeofday(&tp, NULL);
-	msec = tp.tv_sec * 1000;
-	msec += tp.tv_usec / 1000;
-	return (msec);
-}
-
 long long	get_usec(void)
 {
 	struct timeval	tp;
@@ -66,7 +55,7 @@ void	msleep_precise(long long start, long long wait_time)
 {
 	while (1)
 	{
-		if (get_msec() >= start + wait_time)
+		if (get_usec() >= start + wait_time)
 			return ;
 		usleep(500);
 	}

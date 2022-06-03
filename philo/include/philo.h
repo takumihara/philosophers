@@ -4,7 +4,7 @@
 # include <stdbool.h>
 
 # define MAX_NUM_OF_PHILO 200
-# define MIN_TIME 60
+# define MIN_MSEC 60
 
 # define ERR_INVALID_ARGUMENT "error: invalid arguments\n"
 # define ERR_PTHREAD_CREATE "error: failed at pthread_create()\n"

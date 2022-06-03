@@ -6,7 +6,7 @@
 # include <sys/semaphore.h>
 
 # define MAX_NUM_OF_PHILO 200
-# define MIN_TIME 60
+# define MIN_MSEC 60
 
 # define SEM_FORKS_ID "/forks"
 # define SEM_CHECK_ID "/check"
