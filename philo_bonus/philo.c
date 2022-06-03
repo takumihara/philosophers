@@ -65,7 +65,7 @@ bool	ph_eat(t_philo_info *ph_info)
 	bool	satisfied;
 
 	satisfied = false;
-	set_last_meal_time(ph_info, get_time());
+	set_last_meal_time(ph_info, get_mtime());
 	print_log(ph_info, EATING);
 	if (ph_info->left_meal_cnt >= 1)
 	{
@@ -73,14 +73,14 @@ bool	ph_eat(t_philo_info *ph_info)
 		if (ph_info->left_meal_cnt == 0)
 			satisfied = true;
 	}
-	sleep_precisely(get_time(), ph_info->common->time_to_eat);
+	msleep_precise(get_mtime(), ph_info->common->time_to_eat);
 	return (satisfied);
 }
 
 void	ph_sleep(const t_philo_info *ph_info)
 {
 	print_log(ph_info, SLEEPING);
-	sleep_precisely(get_time(), ph_info->common->time_to_sleep);
+	msleep_precise(get_mtime(), ph_info->common->time_to_sleep);
 }
 
 void	ph_think(const t_philo_info *ph_info)

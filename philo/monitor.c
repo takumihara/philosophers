@@ -26,14 +26,14 @@ bool	is_starved(t_info *info, t_philo_info *ph_info)
 {
 	int		i;
 	bool	simulation_finished;
-	long	last_meal_time;
+	long long	last_meal_time;
 
 	i = 0;
 	simulation_finished = false;
 	while (i < info->num_of_philo && !simulation_finished)
 	{
 		last_meal_time = get_last_meal_time(&ph_info[i]);
-		if (get_time() - last_meal_time >= info->time_to_die)
+		if (get_mtime() - last_meal_time >= info->time_to_die)
 		{
 			pthread_mutex_lock(&info->mutex);
 			info->simulation_finished = true;

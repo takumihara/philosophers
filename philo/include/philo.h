@@ -18,7 +18,7 @@ typedef struct s_info {
 	int				time_to_sleep;
 	int				time_to_die;
 	int				num_of_meal;
-	long			start;
+	long long			start;
 	pthread_mutex_t	forks[MAX_NUM_OF_PHILO];
 	pthread_mutex_t	mutex;
 	bool			simulation_finished;
@@ -29,7 +29,7 @@ typedef struct s_philo_info {
 	int		id;
 	int		left;
 	int		right;
-	long	last_meal_time;
+	long long	last_meal_time;
 	int		left_meal_cnt;
 	t_info	*common;
 }	t_philo_info;
@@ -55,8 +55,8 @@ void	*philosopher(void *arg_);
 int		calc_interval(const t_philo_info *ph_info);
 bool	is_simulation_finished(const t_philo_info *ph_info);
 void	print_log(const t_philo_info *info, t_philo_status status);
-void	set_last_meal_time(t_philo_info *ph_info, long last_meal_time);
-long	get_last_meal_time(t_philo_info *ph_info);
+void	set_last_meal_time(t_philo_info *ph_info, long long last_meal_time);
+long long	get_last_meal_time(t_philo_info *ph_info);
 
 // monitor.c
 void	monitor(t_info *info, t_philo_info *ph_info);

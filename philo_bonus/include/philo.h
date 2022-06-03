@@ -31,7 +31,7 @@ typedef struct s_info {
 	int		time_to_sleep;
 	int		time_to_die;
 	int		num_of_meal;
-	long	start;
+	long long	start;
 	sem_t	*forks;
 	sem_t	*sem;
 	sem_t	*sem_out;
@@ -39,7 +39,7 @@ typedef struct s_info {
 
 typedef struct s_philo_info {
 	int		id;
-	long	last_meal_time;
+	long long	last_meal_time;
 	int		left_meal_cnt;
 	bool	is_starved;
 	bool	simulation_finished;
@@ -65,8 +65,8 @@ int		philosopher(t_philo_info *ph_info);
 int		calc_interval(const t_philo_info *ph_info);
 bool	is_starved(const t_philo_info *ph_info);
 void	print_log(const t_philo_info *info, t_philo_status status);
-void	set_last_meal_time(t_philo_info *ph_info, long last_meal_time);
-long	get_last_meal_time(t_philo_info *ph_info);
+void	set_last_meal_time(t_philo_info *ph_info, long long last_meal_time);
+long long	get_last_meal_time(t_philo_info *ph_info);
 
 // monitor.c
 pthread_t	prep_monitor(t_philo_info *ph_info);

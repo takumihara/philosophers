@@ -44,17 +44,17 @@ bool	check_starvation(t_philo_info *ph_info)
 {
 	int		i;
 	bool	is_starved;
-	long	last_meal_time;
+	long long	last_meal_time;
 	t_info	*info;
 
 	info = ph_info->common;
 	i = 0;
 	is_starved = false;
-//	printf("%d in the loop %ld \n", ph_info->id, get_time() - ph_info->common->start);
+//	printf("%d in the loop %lld \n", ph_info->id, get_mtime() - ph_info->common->start);
 	last_meal_time = get_last_meal_time(&ph_info[i]);
-	if (get_time() - last_meal_time >= info->time_to_die)
+	if (get_mtime() - last_meal_time >= info->time_to_die)
 	{
-//		printf("%d found out %ld \n", ph_info->id, get_time() - ph_info->common->start);
+//		printf("%d found out %lld \n", ph_info->id, get_mtime() - ph_info->common->start);
 		sem_wait(info->sem);
 		ph_info->is_starved = true;
 		ph_info->simulation_finished = true;

@@ -2,8 +2,8 @@
 # define UTILS_H
 
 bool	atoi_strict(char *str, int *dst);
-long	get_time(void);
+long long	get_mtime(void);
 int		max(int a, int b);
-void	sleep_precisely(long start, long wait_time);
+void	msleep_precise(long long start, long long wait_time);
 
 #endif //UTILS_H

@@ -19,7 +19,7 @@ bool	is_simulation_finished(const t_philo_info *ph_info)
 
 void	print_log(const t_philo_info *info, t_philo_status status)
 {
-	const long	timestamp = get_time() - info->common->start;
+	const long long	timestamp = get_mtime() - info->common->start;
 
 	pthread_mutex_lock(&info->common->mutex);
 	if (status != DIED && info->common->simulation_finished)
@@ -28,15 +28,15 @@ void	print_log(const t_philo_info *info, t_philo_status status)
 		return ;
 	}
 	if (status == TAKEN_FORK)
-		printf("%ld %d has taken a fork\n", timestamp, info->id);
+		printf("%lld %d has taken a fork\n", timestamp, info->id);
 	else if (status == EATING)
-		printf("%ld %d is eating\n", timestamp, info->id);
+		printf("%lld %d is eating\n", timestamp, info->id);
 	else if (status == SLEEPING)
-		printf("%ld %d is sleeping\n", timestamp, info->id);
+		printf("%lld %d is sleeping\n", timestamp, info->id);
 	else if (status == THINKING)
-		printf("%ld %d is thinking\n", timestamp, info->id);
+		printf("%lld %d is thinking\n", timestamp, info->id);
 	else if (status == DIED)
-		printf("%ld %d died\n", timestamp, info->id);
+		printf("%lld %d died\n", timestamp, info->id);
 	pthread_mutex_unlock(&info->common->mutex);
 }
 
@@ -52,16 +52,16 @@ int	calc_interval(const t_philo_info *ph_info)
 	return (time_to_think / n);
 }
 
-void	set_last_meal_time(t_philo_info *ph_info, long last_meal_time)
+void	set_last_meal_time(t_philo_info *ph_info, long long last_meal_time)
 {
 	pthread_mutex_lock(&ph_info->common->mutex);
 	ph_info->last_meal_time = last_meal_time;
 	pthread_mutex_unlock(&ph_info->common->mutex);
 }
 
-long	get_last_meal_time(t_philo_info *ph_info)
+long long	get_last_meal_time(t_philo_info *ph_info)
 {
-	long	last_meal_time;
+	long long	last_meal_time;
 
 	pthread_mutex_lock(&ph_info->common->mutex);
 	last_meal_time = ph_info->last_meal_time;

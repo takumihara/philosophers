@@ -48,7 +48,7 @@ void	init_philos(t_info *info, pid_t *philos)
 	t_philo_info	ph_info;
 
 	i = -1;
-	info->start = get_time();
+	info->start = get_mtime();
 	while (++i < info->num_of_philo)
 	{
 		init_philo_info(&ph_info, info, i + 1);
