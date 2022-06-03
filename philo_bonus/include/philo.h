@@ -3,7 +3,7 @@
 
 # include <stdbool.h>
 # include <signal.h>
-# include <sys/semaphore.h>
+# include <semaphore.h>
 
 # define MAX_NUM_OF_PHILO 200
 # define MIN_MSEC 60

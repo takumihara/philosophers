@@ -1,4 +1,4 @@
-#include <pthread/pthread.h>
+#include <pthread.h>
 #include <stdbool.h>
 #include <unistd.h>
 #include <stdio.h>
