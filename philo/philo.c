@@ -51,13 +51,13 @@ void	ph_eat(t_philo_info *ph_info)
 		if (ph_info->left_meal_cnt == 0)
 			increment_satisfied_philo(ph_info->common);
 	}
-	msleep_precise(get_usec(), ph_info->common->time_to_eat);
+	usleep_precise(get_usec(), ph_info->common->time_to_eat);
 }
 
 void	ph_sleep(const t_philo_info *ph_info)
 {
 	print_log(ph_info, SLEEPING);
-	msleep_precise(get_usec(), ph_info->common->time_to_sleep);
+	usleep_precise(get_usec(), ph_info->common->time_to_sleep);
 }
 
 void	ph_think(const t_philo_info *ph_info)

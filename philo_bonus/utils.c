@@ -51,7 +51,7 @@ int	max(int a, int b)
 		return (b);
 }
 
-void	msleep_precise(long long start, long long wait_time)
+void	usleep_precise(long long start, long long wait_time)
 {
 	while (1)
 	{

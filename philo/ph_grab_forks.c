@@ -40,7 +40,7 @@ bool	ph_grab_odd_forks(const t_philo_info *ph_info)
 		return (false);
 	forks = ph_info->common->forks;
 	interval = max(0, calc_interval(ph_info));
-	msleep_precise(get_usec(), interval);
+	usleep_precise(get_usec(), interval);
 	if (ph_info->id % 2)
 		pthread_mutex_lock(&forks[ph_info->left]);
 	else
@@ -92,7 +92,7 @@ bool	ph_grab_first_odd_forks(const t_philo_info *ph_info)
 	interval = max(0, calc_interval(ph_info));
 	one_loop = interval + info->time_to_eat + info->time_to_sleep;
 	next = (ph_info->id - 1) * info->time_to_eat % one_loop;
-	msleep_precise(info->start, next);
+	usleep_precise(info->start, next);
 	if (ph_info->id % 2)
 		pthread_mutex_lock(&forks[ph_info->left]);
 	else
@@ -113,7 +113,7 @@ bool	ph_grab_first_even_forks(const t_philo_info *ph_info)
 	forks = ph_info->common->forks;
 	if (ph_info->id % 2 == 0)
 	{
-		msleep_precise(get_usec(), ph_info->common->time_to_eat / 2);
+		usleep_precise(get_usec(), ph_info->common->time_to_eat / 2);
 		return (false);
 	}
 	pthread_mutex_lock(&forks[ph_info->left]);
