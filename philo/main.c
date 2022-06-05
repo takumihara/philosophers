@@ -18,6 +18,3 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-
-// todo: what if you do not do either of join or detach
-// todo: what is timestamp

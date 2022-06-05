@@ -13,7 +13,7 @@ bool	destroy_philos(pid_t *philos, int num_of_philo)
 	i = -1;
 	while (++i < num_of_philo)
 	{
-		if (kill(philos[i], SIGKILL) != 0)
+		if (kill(philos[i], SIGINT) != 0)
 		{
 			if (errno == ESRCH)
 				continue ;
