@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <signal.h>
 #include <errno.h>
+#include <unistd.h>
 
 #include "include/philo.h"
+#include "include/utils.h"
 
 bool	destroy_philos(pid_t *philos, int num_of_philo)
 {
@@ -17,7 +19,7 @@ bool	destroy_philos(pid_t *philos, int num_of_philo)
 		{
 			if (errno == ESRCH)
 				continue ;
-			printf(ERR_KILL);
+			ft_putstr_fd(ERR_KILL, STDERR_FILENO);
 			return (false);
 		}
 	}
@@ -30,12 +32,12 @@ bool	destroy_sem(sem_t *sem, char *sem_id)
 		return (true);
 	if (sem_close(sem) != 0)
 	{
-		printf(ERR_SEM_CLOSE);
+		ft_putstr_fd(ERR_SEM_CLOSE, STDERR_FILENO);
 		return (false);
 	}
 	if (sem_unlink(sem_id) != 0)
 	{
-		printf(ERR_SEM_UNLINK);
+		ft_putstr_fd(ERR_SEM_UNLINK, STDERR_FILENO);
 		return (false);
 	}
 	return (true);

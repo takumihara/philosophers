@@ -17,7 +17,7 @@ pthread_t	prep_monitor(t_philo_info *ph_info)
 
 	if (pthread_create(&pthread, NULL, monitor, ph_info) != 0)
 	{
-		printf(ERR_PTHREAD_CREATE);
+		ft_putstr_fd(ERR_PTHREAD_CREATE, STDERR_FILENO);
 		exit(ES_ERR);
 	}
 	return (pthread);

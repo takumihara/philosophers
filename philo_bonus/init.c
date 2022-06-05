@@ -26,7 +26,7 @@ bool	init_program(int argc, char **argv, t_info *info)
 		|| info->forks == SEM_FAILED
 		|| info->sem_out == SEM_FAILED)
 	{
-		printf(ERR_SEM_OPEN);
+		ft_putstr_fd(ERR_SEM_OPEN, STDERR_FILENO);
 		destroy_program(info, NULL, 0);
 		return (false);
 	}
@@ -48,7 +48,7 @@ bool	parse_args(int argc, char **argv, t_info *info)
 			&& info->time_to_sleep >= MIN_MSEC
 			&& (argc == 5 || atoi_strict(argv[5], &info->num_of_meal))))
 	{
-		printf(ERR_INVALID_ARGUMENT);
+		ft_putstr_fd(ERR_INVALID_ARGUMENT, STDERR_FILENO);
 		return (false);
 	}
 	info->time_to_die *= 1000;
@@ -73,7 +73,7 @@ void	init_philos(t_info *info, pid_t *philos)
 			exit(do_philo(&ph_info));
 		else if (pid < 0)
 		{
-			printf(ERR_FORK);
+			ft_putstr_fd(ERR_FORK, STDERR_FILENO);
 			destroy_program(info, philos, i);
 			exit(EXIT_FAILURE);
 		}
@@ -98,7 +98,7 @@ int	do_philo(t_philo_info *ph_info)
 		sem_post(ph_info->common->sem);
 	}
 	if (pthread_join(pthread, NULL) != 0)
-		printf(ERR_PTHREAD_JOIN);
+		ft_putstr_fd(ERR_PTHREAD_JOIN, STDERR_FILENO);
 	return (res);
 }
 

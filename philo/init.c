@@ -1,6 +1,6 @@
 #include <pthread.h>
 #include <string.h>
-#include <stdio.h>
+#include <unistd.h>
 
 #include "include/philo.h"
 #include "include/utils.h"
@@ -37,7 +37,7 @@ bool	parse_args(int argc, char **argv, t_info *info)
 			&& info->time_to_sleep >= MIN_MSEC
 			&& (argc == 5 || atoi_strict(argv[5], &info->num_of_meal))))
 	{
-		printf(ERR_INVALID_ARGUMENT);
+		ft_putstr_fd(ERR_INVALID_ARGUMENT, STDERR_FILENO);
 		return (false);
 	}
 	info->time_to_die *= 1000;
@@ -57,7 +57,7 @@ bool	init_philos(t_info *info, t_philo_info *ph_info, pthread_t *philos)
 		ph_info[i].last_meal_time = info->start;
 		if (pthread_create(&philos[i], NULL, do_philo, &ph_info[i]) != 0)
 		{
-			printf(ERR_PTHREAD_CREATE);
+			ft_putstr_fd(ERR_PTHREAD_CREATE, STDERR_FILENO);
 			destroy_program(info, philos, i);
 			return (false);
 		}
@@ -74,7 +74,7 @@ bool	init_mutexes(pthread_mutex_t *mutexes, int mutex_num)
 	{
 		if (pthread_mutex_init(&mutexes[i], NULL) != 0)
 		{
-			printf(ERR_MUTEX_INIT);
+			ft_putstr_fd(ERR_MUTEX_INIT, STDERR_FILENO);
 			destroy_mutexes(mutexes, i);
 			return (false);
 		}

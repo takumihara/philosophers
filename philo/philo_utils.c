@@ -17,27 +17,27 @@ bool	is_simulation_finished(const t_philo_info *ph_info)
 	return (simulation_finished);
 }
 
-void	print_log(const t_philo_info *info, t_philo_status status)
+void	print_log(const t_philo_info *ph_info, t_philo_status status)
 {
-	const long long	timestamp = (get_usec() - info->common->start) / 1000;
+	const long long	timestamp = (get_usec() - ph_info->common->start) / 1000;
 
-	pthread_mutex_lock(&info->common->mutex);
-	if (status != DIED && info->common->simulation_finished)
+	pthread_mutex_lock(&ph_info->common->mutex);
+	if (status != DIED && ph_info->common->simulation_finished)
 	{
-		pthread_mutex_unlock(&info->common->mutex);
+		pthread_mutex_unlock(&ph_info->common->mutex);
 		return ;
 	}
 	if (status == TAKEN_FORK)
-		printf("%lld %d has taken a fork\n", timestamp, info->id);
+		printf("%lld %d has taken a fork\n", timestamp, ph_info->id);
 	else if (status == EATING)
-		printf("%lld %d is eating\n", timestamp, info->id);
+		printf("%lld %d is eating\n", timestamp, ph_info->id);
 	else if (status == SLEEPING)
-		printf("%lld %d is sleeping\n", timestamp, info->id);
+		printf("%lld %d is sleeping\n", timestamp, ph_info->id);
 	else if (status == THINKING)
-		printf("%lld %d is thinking\n", timestamp, info->id);
+		printf("%lld %d is thinking\n", timestamp, ph_info->id);
 	else if (status == DIED)
-		printf("%lld %d died\n", timestamp, info->id);
-	pthread_mutex_unlock(&info->common->mutex);
+		printf("%lld %d died\n", timestamp, ph_info->id);
+	pthread_mutex_unlock(&ph_info->common->mutex);
 }
 
 int	calc_interval(const t_philo_info *ph_info)

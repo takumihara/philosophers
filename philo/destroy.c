@@ -1,7 +1,9 @@
 #include <pthread.h>
+#include <unistd.h>
 #include <stdio.h>
 
 #include "include/philo.h"
+#include "include/utils.h"
 
 bool	destroy_program(t_info *info, pthread_t *philos, int num_of_philo)
 {
@@ -12,7 +14,7 @@ bool	destroy_program(t_info *info, pthread_t *philos, int num_of_philo)
 	{
 		if (pthread_join(philos[i], NULL) != 0)
 		{
-			printf(ERR_PTHREAD_JOIN);
+			ft_putstr_fd(ERR_PTHREAD_JOIN, STDERR_FILENO);
 			return (false);
 		}
 	}
@@ -31,7 +33,7 @@ bool	destroy_mutexes(pthread_mutex_t *mutexes, int mutex_num)
 	{
 		if (pthread_mutex_destroy(&mutexes[i]) != 0)
 		{
-			printf(ERR_MUTEX_DESTROY);
+			ft_putstr_fd(ERR_MUTEX_DESTROY, STDERR_FILENO);
 			return (false);
 		}
 	}

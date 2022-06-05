@@ -60,3 +60,15 @@ void	usleep_precise(long long start, long long wait_time)
 		usleep(500);
 	}
 }
+
+void	ft_putstr_fd(const char *s, int fd)
+{
+	size_t	len;
+
+	if (!s)
+		return ;
+	len = 0;
+	while (s[len])
+		len++;
+	write(fd, s, len);
+}
