@@ -15,15 +15,15 @@ void	ph_think(const t_philo_info *ph_info);
 void	*do_philo(void *arg)
 {
 	t_philo_info	*ph_info;
-	bool			first_forks;
+	bool			first_fork;
 
 	ph_info = (t_philo_info *)arg;
-	first_forks = true;
+	first_fork = true;
 	while (true)
 	{
 		if (is_simulation_finished(ph_info))
 			return (NULL);
-		if (!ph_grab_forks(ph_info, &first_forks))
+		if (!ph_grab_forks(ph_info, &first_fork))
 			continue ;
 		ph_eat(ph_info);
 		ph_drop_forks(ph_info);
@@ -51,13 +51,13 @@ void	ph_eat(t_philo_info *ph_info)
 		if (ph_info->left_meal_cnt == 0)
 			increment_satisfied_philo(ph_info->common);
 	}
-	usleep_precise(get_usec(), ph_info->common->time_to_eat);
+	usleep_until(get_usec() + ph_info->common->time_to_eat);
 }
 
 void	ph_sleep(const t_philo_info *ph_info)
 {
 	print_log(ph_info, SLEEPING);
-	usleep_precise(get_usec(), ph_info->common->time_to_sleep);
+	usleep_until(get_usec() + ph_info->common->time_to_sleep);
 }
 
 void	ph_think(const t_philo_info *ph_info)

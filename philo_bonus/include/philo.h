@@ -54,9 +54,9 @@ typedef enum e_philo_status {
 	DIED,
 }	t_philo_status;
 
+// init.c
 bool		init_program(int argc, char **argv, t_info *info);
 void		init_philos(t_info *info, pid_t *philos);
-void		init_philo_info(t_philo_info *ph_info, t_info *info, int id);
 
 // philo.c
 int			ph_loop(t_philo_info *ph_info);
@@ -72,7 +72,7 @@ long long	get_last_meal_time(t_philo_info *ph_info);
 pthread_t	prep_monitor(t_philo_info *ph_info);
 
 // ph_grab_forks.c
-bool		ph_grab_forks(const t_philo_info *ph_info, bool *first_forks);
+bool		ph_grab_forks(const t_philo_info *ph_info, bool *first_fork);
 
 // destroy.c
 bool		destroy_program(t_info *info, pid_t *philos, int num_of_philo);

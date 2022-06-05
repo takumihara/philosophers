@@ -51,11 +51,11 @@ int	max(int a, int b)
 		return (b);
 }
 
-void	usleep_precise(long long start, long long wait_time)
+void	usleep_until(long long time)
 {
 	while (1)
 	{
-		if (get_usec() >= start + wait_time)
+		if (get_usec() >= time)
 			return ;
 		usleep(500);
 	}

@@ -20,10 +20,10 @@ int	main(int argc, char **argv)
 
 static bool	check_philo_status(t_info *info, pid_t *philos)
 {
-	int				status;
-	volatile int	i;
-	bool			someone_died;
-	int				exit_status;
+	int		status;
+	int		i;
+	bool	someone_died;
+	int		exit_status;
 
 	i = 0;
 	someone_died = false;

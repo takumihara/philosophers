@@ -9,11 +9,11 @@ static bool	ph_grab_even_forks(const t_philo_info *ph_info);
 static bool	ph_grab_first_odd_forks(const t_philo_info *ph_info);
 static bool	ph_grab_first_even_forks(const t_philo_info *ph_info);
 
-bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_forks)
+bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_fork)
 {
-	if (*first_forks)
+	if (*first_fork)
 	{
-		*first_forks = false;
+		*first_fork = false;
 		if (ph_info->common->num_of_philo % 2)
 			return (ph_grab_first_odd_forks(ph_info));
 		else
@@ -37,7 +37,7 @@ bool	ph_grab_odd_forks(const t_philo_info *ph_info)
 		return (false);
 	forks = ph_info->common->forks;
 	interval = max(0, calc_interval(ph_info));
-	usleep_precise(get_usec(), interval);
+	usleep_until(get_usec() + interval);
 	sem_wait(forks);
 	print_log(ph_info, TAKEN_FORK);
 	sem_wait(forks);
@@ -83,7 +83,7 @@ bool	ph_grab_first_odd_forks(const t_philo_info *ph_info)
 	interval = max(0, calc_interval(ph_info));
 	one_loop = interval + info->time_to_eat + info->time_to_sleep;
 	next = (ph_info->id - 1) * info->time_to_eat % one_loop;
-	usleep_precise(info->start, next);
+	usleep_until(info->start + next);
 	sem_wait(forks);
 	print_log(ph_info, TAKEN_FORK);
 	sem_wait(forks);
@@ -98,7 +98,7 @@ bool	ph_grab_first_even_forks(const t_philo_info *ph_info)
 	forks = ph_info->common->forks;
 	if (ph_info->id % 2 == 0)
 	{
-		usleep_precise(get_usec(), ph_info->common->time_to_eat / 2);
+		usleep_until(get_usec() + ph_info->common->time_to_eat / 2);
 		return (false);
 	}
 	sem_wait(forks);

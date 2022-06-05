@@ -10,6 +10,7 @@
 
 static bool	parse_args(int argc, char **argv, t_info *info);
 static int	do_philo(t_philo_info *ph_info);
+static void	init_philo_info(t_philo_info *ph_info, t_info *info, int id);
 
 bool	init_program(int argc, char **argv, t_info *info)
 {

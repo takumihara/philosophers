@@ -11,8 +11,6 @@ bool	atoi_strict(char *str, int *dst)
 
 	rtn = 0;
 	sign = 1;
-	while (('\t' <= *str && *str <= '\r') || *str == ' ')
-		str++;
 	if (*str == '-')
 		sign = -1;
 	if (*str == '+' || *str == '-')
@@ -21,9 +19,9 @@ bool	atoi_strict(char *str, int *dst)
 		return (false);
 	while ('0' <= *str && *str <= '9')
 	{
-		if ((rtn * 10 + *str - '0') / 10 != rtn)
-			return (false);
 		rtn = rtn * 10 + *str - '0';
+		if (rtn > INT_MAX || rtn < INT_MIN)
+			return (false);
 		str++;
 	}
 	*dst = (int)(sign * rtn);
@@ -51,11 +49,11 @@ int	max(int a, int b)
 		return (b);
 }
 
-void	usleep_precise(long long start, long long wait_time)
+void	usleep_until(long long time)
 {
 	while (1)
 	{
-		if (get_usec() >= start + wait_time)
+		if (get_usec() >= time)
 			return ;
 		usleep(500);
 	}
