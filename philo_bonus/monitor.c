@@ -9,7 +9,6 @@
 
 static void	*monitor(void *arg);
 static bool	check_starvation(t_philo_info *ph_info);
-static bool	check_simulation_finished(t_philo_info *ph_info);
 
 pthread_t	prep_monitor(t_philo_info *ph_info)
 {
@@ -32,7 +31,7 @@ void	*monitor(void *arg)
 	{
 		if (check_starvation(ph_info))
 			break ;
-		if (check_simulation_finished(ph_info))
+		if (get_simulation_finished(ph_info))
 			break ;
 		usleep(500);
 	}
@@ -41,15 +40,13 @@ void	*monitor(void *arg)
 
 bool	check_starvation(t_philo_info *ph_info)
 {
-	int			i;
 	bool		is_starved;
 	long long	last_meal_time;
 	t_info		*info;
 
 	info = ph_info->common;
-	i = 0;
 	is_starved = false;
-	last_meal_time = get_last_meal_time(&ph_info[i]);
+	last_meal_time = get_last_meal_time(ph_info);
 	if (get_usec() - last_meal_time >= info->time_to_die)
 	{
 		sem_wait(info->sem);
@@ -60,14 +57,4 @@ bool	check_starvation(t_philo_info *ph_info)
 		print_log(ph_info, DIED);
 	}
 	return (is_starved);
-}
-
-bool	check_simulation_finished(t_philo_info *ph_info)
-{
-	bool	simulation_finished;
-
-	sem_wait(ph_info->common->sem);
-	simulation_finished = ph_info->simulation_finished;
-	sem_post(ph_info->common->sem);
-	return (simulation_finished);
 }

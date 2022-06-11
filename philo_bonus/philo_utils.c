@@ -19,7 +19,7 @@ void	print_log(const t_philo_info *ph_info, t_philo_status status)
 {
 	const long long	timestamp = (get_usec() - ph_info->common->start) / 1000;
 
-	 if (status != DIED && ph_info->simulation_finished)
+	 if (status != DIED && get_simulation_finished(ph_info))
 		return ;
 	sem_wait(ph_info->common->sem_out);
 	if (status == TAKEN_FORK)
@@ -46,21 +46,4 @@ int	calc_interval(const t_philo_info *ph_info)
 					- (time_to_eat + time_to_sleep) * n;
 
 	return (time_to_think / n);
-}
-
-void	set_last_meal_time(t_philo_info *ph_info, long long last_meal_time)
-{
-	sem_wait(ph_info->common->sem);
-	ph_info->last_meal_time = last_meal_time;
-	sem_post(ph_info->common->sem);
-}
-
-long long	get_last_meal_time(t_philo_info *ph_info)
-{
-	long long	last_meal_time;
-
-	sem_wait(ph_info->common->sem);
-	last_meal_time = ph_info->last_meal_time;
-	sem_post(ph_info->common->sem);
-	return (last_meal_time);
 }

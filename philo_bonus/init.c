@@ -93,11 +93,7 @@ int	do_philo(t_philo_info *ph_info)
 	pthread = prep_monitor(ph_info);
 	res = ph_loop(ph_info);
 	if (res == ES_SATISFIED)
-	{
-		sem_wait(ph_info->common->sem);
-		ph_info->simulation_finished = true;
-		sem_post(ph_info->common->sem);
-	}
+		set_simulation_finished(ph_info, true);
 	if (pthread_join(pthread, NULL) != 0)
 		ft_putstr_fd(ERR_PTHREAD_JOIN, STDERR_FILENO);
 	return (res);
