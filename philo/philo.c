@@ -6,6 +6,7 @@
 
 #include "include/philo.h"
 #include "include/utils.h"
+#include "include/unwrap.h"
 
 void	ph_drop_forks(const t_philo_info *ph_info);
 void	ph_eat(t_philo_info *ph_info);
@@ -37,8 +38,8 @@ void	ph_drop_forks(const t_philo_info *ph_info)
 	pthread_mutex_t	*forks;
 
 	forks = ph_info->common->forks;
-	pthread_mutex_unlock(&forks[ph_info->left]);
-	pthread_mutex_unlock(&forks[ph_info->right]);
+	pthread_mutex_unlock_unwrap(&forks[ph_info->left]);
+	pthread_mutex_unlock_unwrap(&forks[ph_info->right]);
 }
 
 void	ph_eat(t_philo_info *ph_info)

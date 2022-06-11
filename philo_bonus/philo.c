@@ -2,6 +2,7 @@
 
 #include "include/philo.h"
 #include "include/utils.h"
+#include "include/unwrap.h"
 
 void	ph_drop_forks(const t_philo_info *ph_info);
 bool	ph_eat(t_philo_info *ph_info);
@@ -32,8 +33,8 @@ int	ph_loop(t_philo_info *ph_info)
 
 void	ph_drop_forks(const t_philo_info *ph_info)
 {
-	sem_post(ph_info->common->forks);
-	sem_post(ph_info->common->forks);
+	sem_post_unwrap(ph_info->common->forks);
+	sem_post_unwrap(ph_info->common->forks);
 }
 
 bool	ph_eat(t_philo_info *ph_info)

@@ -4,14 +4,15 @@
 
 #include "include/philo.h"
 #include "include/utils.h"
+#include "include/unwrap.h"
 
 bool	is_starved(const t_philo_info *ph_info)
 {
 	bool	is_starved;
 
-	sem_wait(ph_info->common->sem);
+	sem_wait_unwrap(ph_info->common->sem);
 	is_starved = ph_info->is_starved;
-	sem_post(ph_info->common->sem);
+	sem_post_unwrap(ph_info->common->sem);
 	return (is_starved);
 }
 
@@ -21,7 +22,7 @@ void	print_log(const t_philo_info *ph_info, t_philo_status status)
 
 	 if (status != DIED && get_simulation_finished(ph_info))
 		return ;
-	sem_wait(ph_info->common->sem_out);
+	sem_wait_unwrap(ph_info->common->sem_out);
 	if (status == TAKEN_FORK)
 		printf("%lld %d has taken a fork\n", timestamp, ph_info->id);
 	else if (status == EATING)
@@ -33,7 +34,7 @@ void	print_log(const t_philo_info *ph_info, t_philo_status status)
 	else if (status == DIED)
 		printf("%lld %d died\n", timestamp, ph_info->id);
 	if (status != DIED)
-		sem_post(ph_info->common->sem_out);
+		sem_post_unwrap(ph_info->common->sem_out);
 }
 
 int	calc_interval(const t_philo_info *ph_info)

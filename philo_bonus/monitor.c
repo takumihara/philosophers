@@ -6,6 +6,7 @@
 
 #include "include/philo.h"
 #include "include/utils.h"
+#include "include/unwrap.h"
 
 static void	*monitor(void *arg);
 static bool	check_starvation(t_philo_info *ph_info);
@@ -49,11 +50,11 @@ bool	check_starvation(t_philo_info *ph_info)
 	last_meal_time = get_last_meal_time(ph_info);
 	if (get_usec() - last_meal_time >= info->time_to_die)
 	{
-		sem_wait(info->sem);
+		sem_wait_unwrap(info->sem);
 		ph_info->is_starved = true;
 		ph_info->simulation_finished = true;
 		is_starved = true;
-		sem_post(info->sem);
+		sem_post_unwrap(info->sem);
 		print_log(ph_info, DIED);
 	}
 	return (is_starved);

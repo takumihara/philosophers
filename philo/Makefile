@@ -3,7 +3,7 @@ CURRENT_PATH	= .
 
 SRCDIR 		= ./src
 SRC_PATHS		= $(CURRENT_PATH)
-SRCS			= destroy.c init.c main.c monitor.c ph_grab_forks.c philo.c philo_utils.c utils.c
+SRCS			= destroy.c init.c main.c monitor.c ph_grab_forks.c philo.c philo_utils.c utils.c unwrap.c
 
 VPATH		= $(CURRENT_PATH)
 
