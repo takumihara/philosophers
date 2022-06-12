@@ -63,7 +63,6 @@ int			ph_loop(t_philo_info *ph_info);
 
 // philo_utils.c
 int			calc_interval(const t_philo_info *ph_info);
-bool		is_starved(const t_philo_info *ph_info);
 void		print_log(const t_philo_info *info, t_philo_status status);
 
 // philo_getset.c
@@ -72,6 +71,7 @@ long long	get_last_meal_time(const t_philo_info *ph_info);
 void		set_simulation_finished(
 				t_philo_info *ph_info, bool simulation_finished);
 bool		get_simulation_finished(const t_philo_info *ph_info);
+bool		get_is_starved(const t_philo_info *ph_info);
 
 // monitor.c
 pthread_t	prep_monitor(t_philo_info *ph_info);

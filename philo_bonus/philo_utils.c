@@ -6,16 +6,6 @@
 #include "include/utils.h"
 #include "include/unwrap.h"
 
-bool	is_starved(const t_philo_info *ph_info)
-{
-	bool	is_starved;
-
-	sem_wait_unwrap(ph_info->common->sem);
-	is_starved = ph_info->is_starved;
-	sem_post_unwrap(ph_info->common->sem);
-	return (is_starved);
-}
-
 void	print_log(const t_philo_info *ph_info, t_philo_status status)
 {
 	const long long	timestamp = (get_usec() - ph_info->common->start) / 1000;

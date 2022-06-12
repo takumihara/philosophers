@@ -47,7 +47,9 @@ bool	parse_args(int argc, char **argv, t_info *info)
 			&& info->time_to_eat >= MIN_MSEC
 			&& atoi_strict(argv[4], &info->time_to_sleep)
 			&& info->time_to_sleep >= MIN_MSEC
-			&& (argc == 5 || atoi_strict(argv[5], &info->num_of_meal))))
+			&& (argc == 5 || (
+					atoi_strict(argv[5], &info->num_of_meal)
+					&& info->num_of_meal >= 0))))
 	{
 		ft_putstr_fd(ERR_INVALID_ARGUMENT, STDERR_FILENO);
 		return (false);

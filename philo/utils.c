@@ -21,7 +21,7 @@ bool	atoi_strict(char *str, int *dst)
 		return (false);
 	while ('0' <= *str && *str <= '9')
 	{
-		if ((rtn * 10 + *str - '0') / 10 != rtn)
+		if (rtn > INT_MAX || rtn < INT_MIN)
 			return (false);
 		rtn = rtn * 10 + *str - '0';
 		str++;

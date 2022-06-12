@@ -18,7 +18,7 @@ int	ph_loop(t_philo_info *ph_info)
 	satisfied = false;
 	while (true)
 	{
-		if (is_starved(ph_info))
+		if (get_is_starved(ph_info))
 			return (ES_STARVED);
 		if (!ph_grab_forks(ph_info, &first_fork))
 			continue ;

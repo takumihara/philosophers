@@ -37,3 +37,13 @@ bool	get_simulation_finished(const t_philo_info *ph_info)
 	sem_post_unwrap(ph_info->common->sem);
 	return (simulation_finished);
 }
+
+bool	get_is_starved(const t_philo_info *ph_info)
+{
+	bool	is_starved;
+
+	sem_wait_unwrap(ph_info->common->sem);
+	is_starved = ph_info->is_starved;
+	sem_post_unwrap(ph_info->common->sem);
+	return (is_starved);
+}
