@@ -1,6 +1,3 @@
-#include <stdbool.h>
-#include <stdio.h>
-
 #include "include/philo.h"
 #include "include/unwrap.h"
 
@@ -36,14 +33,4 @@ int	get_left_meal_cnt(const t_philo_info *ph_info)
 	left_meal_cnt = ph_info->left_meal_cnt;
 	sem_post_unwrap(ph_info->common->sem);
 	return (left_meal_cnt);
-}
-
-bool	get_is_starved(const t_philo_info *ph_info)
-{
-	bool	is_starved;
-
-	sem_wait_unwrap(ph_info->common->sem);
-	is_starved = ph_info->is_starved;
-	sem_post_unwrap(ph_info->common->sem);
-	return (is_starved);
 }

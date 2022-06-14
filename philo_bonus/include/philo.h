@@ -41,8 +41,6 @@ typedef struct s_philo_info {
 	int			id;
 	long long	last_meal_time;
 	int			left_meal_cnt;
-	bool		is_starved;
-//	bool		is_satisfied;
 	t_info		*common;
 }	t_philo_info;
 
@@ -70,7 +68,6 @@ void		set_last_meal_time(t_philo_info *ph_info, long long last_meal_time);
 long long	get_last_meal_time(const t_philo_info *ph_info);
 void		dec_left_meal_cnt(t_philo_info *ph_info);
 int			get_left_meal_cnt(const t_philo_info *ph_info);
-bool		get_is_starved(const t_philo_info *ph_info);
 
 // monitor.c
 pthread_t	prep_monitor(t_philo_info *ph_info);

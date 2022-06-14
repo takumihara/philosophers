@@ -9,8 +9,7 @@
 #include "include/unwrap.h"
 
 static void	*monitor(void *arg);
-static bool	check_starvation(t_philo_info *ph_info);
-static bool	check_satisfaction(t_philo_info *ph_info);
+static bool	check_starvation(const t_philo_info *ph_info);
 
 pthread_t	prep_monitor(t_philo_info *ph_info)
 {
@@ -26,9 +25,8 @@ pthread_t	prep_monitor(t_philo_info *ph_info)
 
 void	*monitor(void *arg)
 {
-	t_philo_info	*ph_info;
+	const t_philo_info	*ph_info = arg;
 
-	ph_info = arg;
 	while (true)
 	{
 		if (check_starvation(ph_info))
@@ -39,22 +37,17 @@ void	*monitor(void *arg)
 	}
 }
 
-bool	check_starvation(t_philo_info *ph_info)
+bool	check_starvation(const t_philo_info *ph_info)
 {
-	bool		is_starved;
 	long long	last_meal_time;
 	t_info		*info;
 
 	info = ph_info->common;
-	is_starved = false;
 	last_meal_time = get_last_meal_time(ph_info);
 	if (get_usec() - last_meal_time >= info->time_to_die)
 	{
-		sem_wait_unwrap(info->sem);
-		ph_info->is_starved = true;
-		is_starved = true;
-		sem_post_unwrap(info->sem);
 		print_log(ph_info, DIED);
+		return (true);
 	}
-	return (is_starved);
+	return (false);
 }
