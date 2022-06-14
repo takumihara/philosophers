@@ -1,5 +1,7 @@
 #include <stdbool.h>
 #include <printf.h>
+#include <pthread.h>
+#include <unistd.h>
 
 #include "include/philo.h"
 #include "include/utils.h"
@@ -10,10 +12,15 @@ void	ph_eat(t_philo_info *ph_info);
 void	ph_sleep(const t_philo_info *ph_info);
 void	ph_think(const t_philo_info *ph_info);
 
-void	ph_loop(t_philo_info *ph_info)
+int	do_philo(t_philo_info *ph_info)
 {
-	bool	first_fork;
+	bool		first_fork;
+	pthread_t	pthread_monitor;
+	void		*res;
 
+	if (ph_info->left_meal_cnt == 0)
+		return (ES_SATISFIED);
+	pthread_monitor = prep_monitor(ph_info);
 	first_fork = true;
 	while (true)
 	{
@@ -22,10 +29,13 @@ void	ph_loop(t_philo_info *ph_info)
 		ph_eat(ph_info);
 		ph_drop_forks(ph_info);
 		if (get_left_meal_cnt(ph_info) == 0)
-			return ;
+			break ;
 		ph_sleep(ph_info);
 		ph_think(ph_info);
 	}
+	if (pthread_join(pthread_monitor, &res) != 0)
+		ft_putstr_fd(ERR_PTHREAD_JOIN, STDERR_FILENO);
+	return ((int)(uintptr_t)res);
 }
 
 void	ph_drop_forks(const t_philo_info *ph_info)

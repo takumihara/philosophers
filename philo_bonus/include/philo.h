@@ -57,7 +57,7 @@ bool		init_program(int argc, char **argv, t_info *info);
 void		init_philos(t_info *info, pid_t *philos);
 
 // philo.c
-void		ph_loop(t_philo_info *ph_info);
+int			do_philo(t_philo_info *ph_info);
 
 // philo_utils.c
 int			calc_interval(const t_philo_info *ph_info);
