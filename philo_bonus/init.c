@@ -13,14 +13,14 @@ bool	init_program(int argc, char **argv, t_info *info)
 {
 	if (!parse_args(argc, argv, info))
 		return (false);
-	sem_unlink(SEM_CHECK_ID);
+	sem_unlink(SEM_ACCESS_ID);
 	sem_unlink(SEM_FORKS_ID);
 	sem_unlink(SEM_OUT_ID);
-	info->sem = sem_open(SEM_CHECK_ID, O_CREAT | O_EXCL, 0600, 1);
+	info->sem_access = sem_open(SEM_ACCESS_ID, O_CREAT | O_EXCL, 0600, 1);
 	info->forks = sem_open(
 			SEM_FORKS_ID, O_CREAT | O_EXCL, 0600, info->num_of_philo);
 	info->sem_out = sem_open(SEM_OUT_ID, O_CREAT | O_EXCL, 0600, 1);
-	if (info->sem == SEM_FAILED
+	if (info->sem_access == SEM_FAILED
 		|| info->forks == SEM_FAILED
 		|| info->sem_out == SEM_FAILED)
 	{

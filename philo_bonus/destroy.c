@@ -48,7 +48,7 @@ bool	destroy_program(t_info *info, pid_t *philos, int num_of_philo)
 	bool	res;
 
 	res = destroy_philos(philos, num_of_philo);
-	res &= destroy_sem(info->sem, SEM_CHECK_ID);
+	res &= destroy_sem(info->sem_access, SEM_ACCESS_ID);
 	res &= destroy_sem(info->forks, SEM_FORKS_ID);
 	res &= destroy_sem(info->sem_out, SEM_OUT_ID);
 	return (res);

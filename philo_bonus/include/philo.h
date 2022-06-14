@@ -8,8 +8,8 @@
 # define MAX_NUM_OF_PHILO 200
 # define MIN_MSEC 60
 
-# define SEM_FORKS_ID "/forks"
-# define SEM_CHECK_ID "/check"
+# define SEM_FORKS_ID "/philo_forks"
+# define SEM_ACCESS_ID "/philo_access"
 # define SEM_OUT_ID "/philo_out"
 
 # define ES_ERR 0
@@ -33,7 +33,7 @@ typedef struct s_info {
 	int			num_of_meal;
 	long long	start;
 	sem_t		*forks;
-	sem_t		*sem;
+	sem_t		*sem_access;
 	sem_t		*sem_out;
 }	t_info;
 
