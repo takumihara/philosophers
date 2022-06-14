@@ -14,17 +14,16 @@ void	ph_think(const t_philo_info *ph_info);
 
 int	do_philo(t_philo_info *ph_info)
 {
-	bool		first_fork;
+	bool		is_first_fork;
 	pthread_t	pthread_monitor;
-	void		*res;
 
 	if (ph_info->left_meal_cnt == 0)
 		return (ES_SATISFIED);
-	pthread_monitor = prep_monitor(ph_info);
-	first_fork = true;
+	pthread_monitor = init_monitor(ph_info);
+	is_first_fork = true;
 	while (true)
 	{
-		if (!ph_grab_forks(ph_info, &first_fork))
+		if (!ph_grab_forks(ph_info, &is_first_fork))
 			continue ;
 		ph_eat(ph_info);
 		ph_drop_forks(ph_info);
@@ -33,9 +32,9 @@ int	do_philo(t_philo_info *ph_info)
 		ph_sleep(ph_info);
 		ph_think(ph_info);
 	}
-	if (pthread_join(pthread_monitor, &res) != 0)
+	if (pthread_join(pthread_monitor, NULL) != 0)
 		ft_putstr_fd(ERR_PTHREAD_JOIN, STDERR_FILENO);
-	return ((int)(uintptr_t)res);
+	return (ES_SATISFIED);
 }
 
 void	ph_drop_forks(const t_philo_info *ph_info)

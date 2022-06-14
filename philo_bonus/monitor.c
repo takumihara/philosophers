@@ -11,7 +11,7 @@
 static void	*monitor(void *arg);
 static bool	check_starvation(const t_philo_info *ph_info);
 
-pthread_t	prep_monitor(t_philo_info *ph_info)
+pthread_t	init_monitor(t_philo_info *ph_info)
 {
 	pthread_t	pthread;
 
@@ -32,7 +32,7 @@ void	*monitor(void *arg)
 		if (check_starvation(ph_info))
 			exit(ES_STARVED);
 		if (get_left_meal_cnt(ph_info) == 0)
-			return ((void *)ES_SATISFIED);
+			return (NULL);
 		usleep(500);
 	}
 }

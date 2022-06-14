@@ -16,15 +16,15 @@ void	ph_think(const t_philo_info *ph_info);
 void	*do_philo(void *arg)
 {
 	t_philo_info	*ph_info;
-	bool			first_fork;
+	bool			is_first_fork;
 
 	ph_info = (t_philo_info *)arg;
-	first_fork = true;
+	is_first_fork = true;
 	while (true)
 	{
 		if (is_simulation_finished(ph_info))
 			return (NULL);
-		if (!ph_grab_forks(ph_info, &first_fork))
+		if (!ph_grab_forks(ph_info, &is_first_fork))
 			continue ;
 		ph_eat(ph_info);
 		ph_drop_forks(ph_info);

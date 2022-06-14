@@ -13,11 +13,11 @@ static bool	ph_grab_even_forks(const t_philo_info *ph_info);
 static bool	ph_grab_first_odd_forks(const t_philo_info *ph_info);
 static bool	ph_grab_first_even_forks(const t_philo_info *ph_info);
 
-bool	ph_grab_forks(const t_philo_info *ph_info, bool *first_fork)
+bool	ph_grab_forks(const t_philo_info *ph_info, bool *is_first_fork)
 {
-	if (*first_fork)
+	if (*is_first_fork)
 	{
-		*first_fork = false;
+		*is_first_fork = false;
 		if (ph_info->common->num_of_philo % 2)
 			return (ph_grab_first_odd_forks(ph_info));
 		else

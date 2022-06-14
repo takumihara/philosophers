@@ -70,10 +70,10 @@ void		dec_left_meal_cnt(t_philo_info *ph_info);
 int			get_left_meal_cnt(const t_philo_info *ph_info);
 
 // monitor.c
-pthread_t	prep_monitor(t_philo_info *ph_info);
+pthread_t	init_monitor(t_philo_info *ph_info);
 
 // ph_grab_forks.c
-bool		ph_grab_forks(const t_philo_info *ph_info, bool *first_fork);
+bool		ph_grab_forks(const t_philo_info *ph_info, bool *is_first_fork);
 
 // destroy.c
 bool		destroy_program(t_info *info, pid_t *philos, int num_of_philo);
