@@ -43,7 +43,7 @@ long long	get_usec(void)
 	return (usec);
 }
 
-int	max(int a, int b)
+long long	max(long long a, long long b)
 {
 	if (a >= b)
 		return (a);

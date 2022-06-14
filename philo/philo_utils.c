@@ -41,16 +41,16 @@ void	print_log(const t_philo_info *ph_info, t_philo_status status)
 	pthread_mutex_unlock_unwrap(&ph_info->common->mutex);
 }
 
-int	calc_interval(const t_philo_info *ph_info)
+long long	calc_time_to_think(const t_info *info)
 {
-	const int	num_of_philo = ph_info->common->num_of_philo;
-	const int	time_to_eat = ph_info->common->time_to_eat;
-	const int	time_to_sleep = ph_info->common->time_to_sleep;
-	const int	n = num_of_philo / 2;
-	const int	time_to_think = time_to_eat * num_of_philo
-					- (time_to_eat + time_to_sleep) * n;
+	const int		num_of_philo = info->num_of_philo;
+	const int		time_to_eat = info->time_to_eat;
+	const int		time_to_sleep = info->time_to_sleep;
+	const int		n = num_of_philo / 2;
+	const long long	ttl_time_to_think = time_to_eat * num_of_philo
+								   - (time_to_eat + time_to_sleep) * n;
 
-	return (time_to_think / n);
+	return (max(0, ttl_time_to_think / n));
 }
 
 void	set_last_meal_time(t_philo_info *ph_info, long long last_meal_time)

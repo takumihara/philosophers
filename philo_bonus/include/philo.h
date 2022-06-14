@@ -27,10 +27,11 @@
 
 typedef struct s_info {
 	int			num_of_philo;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			time_to_die;
+	long long	time_to_eat;
+	long long	time_to_sleep;
+	long long	time_to_die;
 	int			num_of_meal;
+	long long	time_to_think;
 	long long	start;
 	sem_t		*forks;
 	sem_t		*sem_access;
@@ -60,7 +61,7 @@ void		init_philos(t_info *info, pid_t *philos);
 int			do_philo(t_philo_info *ph_info);
 
 // philo_utils.c
-int			calc_interval(const t_philo_info *ph_info);
+long long	calc_time_to_think(const t_info *info);
 void		print_log(const t_philo_info *info, t_philo_status status);
 
 // philo_getset.c
