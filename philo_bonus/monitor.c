@@ -10,6 +10,7 @@
 
 static void	*monitor(void *arg);
 static bool	check_starvation(t_philo_info *ph_info);
+static bool	check_satisfaction(t_philo_info *ph_info);
 
 pthread_t	prep_monitor(t_philo_info *ph_info)
 {
@@ -31,12 +32,11 @@ void	*monitor(void *arg)
 	while (true)
 	{
 		if (check_starvation(ph_info))
-			break ;
-		if (get_simulation_finished(ph_info))
-			break ;
+			exit(ES_STARVED);
+		if (get_left_meal_cnt(ph_info) == 0)
+			return ((void *)ES_SATISFIED);
 		usleep(500);
 	}
-	return (NULL);
 }
 
 bool	check_starvation(t_philo_info *ph_info)
@@ -52,7 +52,6 @@ bool	check_starvation(t_philo_info *ph_info)
 	{
 		sem_wait_unwrap(info->sem);
 		ph_info->is_starved = true;
-		ph_info->simulation_finished = true;
 		is_starved = true;
 		sem_post_unwrap(info->sem);
 		print_log(ph_info, DIED);

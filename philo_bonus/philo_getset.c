@@ -21,21 +21,21 @@ long long	get_last_meal_time(const t_philo_info *ph_info)
 	return (last_meal_time);
 }
 
-void	set_simulation_finished(t_philo_info *ph_info, bool simulation_finished)
+void	dec_left_meal_cnt(t_philo_info *ph_info)
 {
 	sem_wait_unwrap(ph_info->common->sem);
-	ph_info->simulation_finished = simulation_finished;
+	ph_info->left_meal_cnt -= 1;
 	sem_post_unwrap(ph_info->common->sem);
 }
 
-bool	get_simulation_finished(const t_philo_info *ph_info)
+int	get_left_meal_cnt(const t_philo_info *ph_info)
 {
-	bool	simulation_finished;
+	int	left_meal_cnt;
 
 	sem_wait_unwrap(ph_info->common->sem);
-	simulation_finished = ph_info->simulation_finished;
+	left_meal_cnt = ph_info->left_meal_cnt;
 	sem_post_unwrap(ph_info->common->sem);
-	return (simulation_finished);
+	return (left_meal_cnt);
 }
 
 bool	get_is_starved(const t_philo_info *ph_info)

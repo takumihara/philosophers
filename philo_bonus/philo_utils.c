@@ -10,8 +10,6 @@ void	print_log(const t_philo_info *ph_info, t_philo_status status)
 {
 	const long long	timestamp = (get_usec() - ph_info->common->start) / 1000;
 
-	 if (status != DIED && get_simulation_finished(ph_info))
-		return ;
 	sem_wait_unwrap(ph_info->common->sem_out);
 	if (status == TAKEN_FORK)
 		printf("%lld %d has taken a fork\n", timestamp, ph_info->id);

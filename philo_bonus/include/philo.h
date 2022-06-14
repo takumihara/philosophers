@@ -42,7 +42,7 @@ typedef struct s_philo_info {
 	long long	last_meal_time;
 	int			left_meal_cnt;
 	bool		is_starved;
-	bool		simulation_finished;
+//	bool		is_satisfied;
 	t_info		*common;
 }	t_philo_info;
 
@@ -59,7 +59,7 @@ bool		init_program(int argc, char **argv, t_info *info);
 void		init_philos(t_info *info, pid_t *philos);
 
 // philo.c
-int			ph_loop(t_philo_info *ph_info);
+void		ph_loop(t_philo_info *ph_info);
 
 // philo_utils.c
 int			calc_interval(const t_philo_info *ph_info);
@@ -68,9 +68,8 @@ void		print_log(const t_philo_info *info, t_philo_status status);
 // philo_getset.c
 void		set_last_meal_time(t_philo_info *ph_info, long long last_meal_time);
 long long	get_last_meal_time(const t_philo_info *ph_info);
-void		set_simulation_finished(
-				t_philo_info *ph_info, bool simulation_finished);
-bool		get_simulation_finished(const t_philo_info *ph_info);
+void		dec_left_meal_cnt(t_philo_info *ph_info);
+int			get_left_meal_cnt(const t_philo_info *ph_info);
 bool		get_is_starved(const t_philo_info *ph_info);
 
 // monitor.c

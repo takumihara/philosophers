@@ -85,20 +85,19 @@ void	init_philos(t_info *info, pid_t *philos)
 	}
 }
 
+//todo: use uintptr_r
 int	do_philo(t_philo_info *ph_info)
 {
-	int			res;
 	pthread_t	pthread;
+	void		*res;
 
 	if (ph_info->left_meal_cnt == 0)
 		return (ES_SATISFIED);
 	pthread = prep_monitor(ph_info);
-	res = ph_loop(ph_info);
-	if (res == ES_SATISFIED)
-		set_simulation_finished(ph_info, true);
-	if (pthread_join(pthread, NULL) != 0)
+	ph_loop(ph_info);
+	if (pthread_join(pthread, &res) != 0)
 		ft_putstr_fd(ERR_PTHREAD_JOIN, STDERR_FILENO);
-	return (res);
+	return ((int)(uintptr_t)res);
 }
 
 void	init_philo_info(t_philo_info *ph_info, t_info *info, int id)
@@ -106,7 +105,6 @@ void	init_philo_info(t_philo_info *ph_info, t_info *info, int id)
 	ph_info->id = id;
 	ph_info->last_meal_time = info->start;
 	ph_info->left_meal_cnt = info->num_of_meal;
-	ph_info->simulation_finished = false;
 	ph_info->is_starved = false;
 	ph_info->common = info;
 }
