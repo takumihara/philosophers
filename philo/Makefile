@@ -2,8 +2,8 @@ NAME    		= philo
 CURRENT_PATH	= .
 
 SRCDIR 		= ./src
-SRC_PATHS		= $(CURRENT_PATH)
-SRCS			= destroy.c init.c main.c monitor.c ph_grab_forks.c philo.c philo_utils.c utils.c unwrap.c
+SRC_PATHS	= $(CURRENT_PATH)
+SRCS		= destroy.c init.c main.c monitor.c ph_grab_forks.c philo.c philo_utils.c utils.c unwrap.c
 
 VPATH		= $(CURRENT_PATH)
 
@@ -11,7 +11,7 @@ OBJDIR  	= ./obj
 OBJS    	= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 
 CC      	= gcc -pthread
-#CFLAGS   	= -Wall -Wextra -Werror -fsanitize=thread
+CFLAGS   	= -Wall -Wextra -Werror
 #CFLAGS   	= -fsanitize=thread
 #CFLAGS   	= -fsanitize=address
 

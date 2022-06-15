@@ -1,17 +1,15 @@
 #include <pthread.h>
-#include <unistd.h>
 #include <stdbool.h>
 #include <string.h>
-#include <stdio.h>
 
 #include "include/philo.h"
 #include "include/utils.h"
 #include "include/unwrap.h"
 
-void	ph_drop_forks(const t_philo_info *ph_info);
-void	ph_eat(t_philo_info *ph_info);
-void	ph_sleep(const t_philo_info *ph_info);
-void	ph_think(const t_philo_info *ph_info);
+static void	ph_drop_forks(const t_philo_info *ph_info);
+static void	ph_eat(t_philo_info *ph_info);
+static void	ph_sleep(const t_philo_info *ph_info);
+static void	ph_think(const t_philo_info *ph_info);
 
 void	*do_philo(void *arg)
 {
@@ -20,10 +18,8 @@ void	*do_philo(void *arg)
 
 	ph_info = (t_philo_info *)arg;
 	is_first_fork = true;
-	while (true)
+	while (!is_simulation_finished(ph_info))
 	{
-		if (is_simulation_finished(ph_info))
-			return (NULL);
 		if (!ph_grab_forks(ph_info, &is_first_fork))
 			continue ;
 		ph_eat(ph_info);
@@ -31,6 +27,7 @@ void	*do_philo(void *arg)
 		ph_sleep(ph_info);
 		ph_think(ph_info);
 	}
+	return (NULL);
 }
 
 void	ph_drop_forks(const t_philo_info *ph_info)

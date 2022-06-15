@@ -18,7 +18,7 @@ long long	get_last_meal_time(const t_philo_info *ph_info)
 	return (last_meal_time);
 }
 
-void	dec_left_meal_cnt(t_philo_info *ph_info)
+void	decrement_left_meal_cnt(t_philo_info *ph_info)
 {
 	sem_wait_unwrap(ph_info->common->sem_access);
 	ph_info->left_meal_cnt -= 1;

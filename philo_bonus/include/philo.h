@@ -67,7 +67,7 @@ void		print_log(const t_philo_info *info, t_philo_status status);
 // philo_getset.c
 void		set_last_meal_time(t_philo_info *ph_info, long long last_meal_time);
 long long	get_last_meal_time(const t_philo_info *ph_info);
-void		dec_left_meal_cnt(t_philo_info *ph_info);
+void		decrement_left_meal_cnt(t_philo_info *ph_info);
 int			get_left_meal_cnt(const t_philo_info *ph_info);
 
 // monitor.c

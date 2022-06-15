@@ -1,8 +1,6 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <stdbool.h>
-#include <string.h>
-#include <stdio.h>
 
 #include "include/philo.h"
 #include "include/utils.h"

@@ -1,5 +1,3 @@
-#include <pthread.h>
-#include <stdbool.h>
 #include <stdio.h>
 
 #include "include/philo.h"
@@ -28,9 +26,9 @@ void	print_log(const t_philo_info *ph_info, t_philo_status status)
 long long	calc_time_to_think(const t_info *info)
 {
 	const int		num_of_philo = info->num_of_philo;
-	const int		time_to_eat = info->time_to_eat;
-	const int		time_to_sleep = info->time_to_sleep;
 	const int		n = num_of_philo / 2;
+	const long long	time_to_eat = info->time_to_eat;
+	const long long	time_to_sleep = info->time_to_sleep;
 	const long long	ttl_time_to_think = time_to_eat * num_of_philo
 						- (time_to_eat + time_to_sleep) * n;
 

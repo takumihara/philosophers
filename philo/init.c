@@ -1,7 +1,6 @@
 #include <pthread.h>
 #include <string.h>
 #include <unistd.h>
-#include <printf.h>
 
 #include "include/philo.h"
 #include "include/utils.h"

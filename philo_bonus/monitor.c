@@ -6,7 +6,6 @@
 
 #include "include/philo.h"
 #include "include/utils.h"
-#include "include/unwrap.h"
 
 static void	*monitor(void *arg);
 static bool	check_starvation(const t_philo_info *ph_info);

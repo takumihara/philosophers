@@ -40,17 +40,17 @@ bool	parse_args(int argc, char **argv, t_info *info)
 
 	info->num_of_meal = -1;
 	if (!((argc == 5 || argc == 6)
-		  && atoi_strict(argv[1], &info->num_of_philo)
-		  && 1 <= info->num_of_philo && info->num_of_philo <= MAX_NUM_OF_PHILO
-		  && atoi_strict(argv[2], &time_to_die)
-		  && time_to_die >= MIN_MSEC
-		  && atoi_strict(argv[3], &time_to_eat)
-		  && time_to_eat >= MIN_MSEC
-		  && atoi_strict(argv[4], &time_to_sleep)
-		  && time_to_sleep >= MIN_MSEC
-		  && (argc == 5 || (
-			atoi_strict(argv[5], &info->num_of_meal)
-			&& info->num_of_meal >= 0))))
+			&& atoi_strict(argv[1], &info->num_of_philo)
+			&& 1 <= info->num_of_philo && info->num_of_philo <= MAX_NUM_OF_PHILO
+			&& atoi_strict(argv[2], &time_to_die)
+			&& time_to_die >= MIN_MSEC
+			&& atoi_strict(argv[3], &time_to_eat)
+			&& time_to_eat >= MIN_MSEC
+			&& atoi_strict(argv[4], &time_to_sleep)
+			&& time_to_sleep >= MIN_MSEC
+			&& (argc == 5 || (
+					atoi_strict(argv[5], &info->num_of_meal)
+					&& info->num_of_meal >= 0))))
 	{
 		ft_putstr_fd(ERR_INVALID_ARGUMENT, STDERR_FILENO);
 		return (false);
@@ -75,14 +75,14 @@ void	init_philos(t_info *info, pid_t *philos)
 		pid = fork();
 		if (pid == 0)
 			exit(do_philo(&ph_info));
-		else if (pid < 0)
+		else if (pid > 0)
+			philos[i] = pid;
+		else
 		{
 			ft_putstr_fd(ERR_FORK, STDERR_FILENO);
 			destroy_program(info, philos, i);
 			exit(EXIT_FAILURE);
 		}
-		else
-			philos[i] = pid;
 	}
 }
 

@@ -1,5 +1,4 @@
 #include <stdbool.h>
-#include <printf.h>
 #include <pthread.h>
 #include <unistd.h>
 
@@ -48,7 +47,7 @@ void	ph_eat(t_philo_info *ph_info)
 	set_last_meal_time(ph_info, get_usec());
 	print_log(ph_info, EATING);
 	if (ph_info->left_meal_cnt >= 1)
-		dec_left_meal_cnt(ph_info);
+		decrement_left_meal_cnt(ph_info);
 	usleep_until(get_usec() + ph_info->common->time_to_eat);
 }
 
